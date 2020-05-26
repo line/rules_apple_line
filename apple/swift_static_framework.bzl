@@ -166,6 +166,7 @@ def swift_static_framework(
         copts = [],
         swiftc_inputs = [],
         deps = [],
+        avoid_deps = None,
         data = [],
         visibility = DEFAULT_VISIBILITY,
         minimum_os_version = DEFAULT_MINIMUM_OS_VERSION,
@@ -216,6 +217,13 @@ def swift_static_framework(
           Note that, by default, none of these and all of their transitive
           dependencies will be linked into the final binary when building the
           `${name}Framework` target.
+      avoid_deps: A list of `objc_library` and `swift_library` targets on which
+          this framework depends in order to compile, but the transitive
+          closure of which will not be linked into the framework's binary. By
+          default this is the same as `deps`, that is none of the
+          depependencies will be linked into the framework's binary. For
+          example, providing an empty list (`[]`) here will result in a fully
+          static link binary.
       data: The list of files needed by this rule at runtime. These will be
           bundled to the top level directory of the bundling target (`.app` or
           `.framework`).
@@ -295,6 +303,9 @@ def swift_static_framework(
         ],
     )
 
+    if avoid_deps == None:
+        avoid_deps = deps
+
     ios_static_framework(
         name = name + ".intermediate",
         hdrs = [
@@ -303,7 +314,7 @@ def swift_static_framework(
         deps = [
             ":" + objc_library_name,
         ],
-        avoid_deps = deps,
+        avoid_deps = avoid_deps,
         bundle_name = name,
         minimum_os_version = minimum_os_version,
     )

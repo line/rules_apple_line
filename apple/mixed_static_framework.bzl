@@ -178,6 +178,7 @@ def mixed_static_framework(
         swiftc_inputs = [],
         objc_deps = [],
         swift_deps = [],
+        avoid_deps = None,
         deps = [],
         data = [],
         umbrella_header = None,
@@ -278,13 +279,19 @@ def mixed_static_framework(
           `swiftc`.
       objc_copts: Additional compiler options that should be passed to `clang`.
       swift_copts: Additional compiler options that should be passed to `swiftc`.
-      swift_copts: Additional compiler options that should be passed to `swiftc`.
       swiftc_inputs: Additional files that are referenced using `$(rootpath
           ...)` and `$(execpath ...)` in attributes that support location
           expansion (e.g. `copts`).
       objc_deps: Dependencies of the underlying `objc_library` target.
       swift_deps: Dependencies of the underlying `swift_library` target.
       deps: Dependencies of the both `objc_library` and `swift_library` targets.
+      avoid_deps: A list of `objc_library` and `swift_library` targets on which
+          this framework depends in order to compile, but the transitive
+          closure of which will not be linked into the framework's binary. By
+          default this is the same as `deps`, that is none of the
+          depependencies will be linked into the framework's binary. For
+          example, providing an empty list (`[]`) here will result in a fully
+          static link binary.
       data: The list of files needed by this rule at runtime. These will be
           bundled to the top level directory of the bundling target (`.app` or
           `.framework`).
@@ -442,6 +449,9 @@ def mixed_static_framework(
         ],
     )
 
+    if avoid_deps == None:
+        avoid_deps = deps
+
     _ios_static_framework(
         name = name + ".intermediate",
         hdrs = hdrs + textual_hdrs + [
@@ -450,7 +460,7 @@ def mixed_static_framework(
         deps = [
             ":" + objc_library_name,
         ],
-        avoid_deps = deps,
+        avoid_deps = avoid_deps,
         bundle_name = name,
         minimum_os_version = minimum_os_version,
         umbrella_header = umbrella_header,

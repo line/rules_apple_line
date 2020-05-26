@@ -33,7 +33,7 @@ def objc_static_framework(
         hdrs = [],
         archives = [],
         deps = [],
-        avoid_deps = [],
+        avoid_deps = None,
         data = [],
         module_name = None,
         textual_hdrs = [],
@@ -116,7 +116,9 @@ def objc_static_framework(
     """
 
     module_name = module_name or name
-    avoid_deps = avoid_deps or deps
+
+    if avoid_deps == None:
+        avoid_deps = deps
 
     private_hdrs = []
     for x in srcs:
