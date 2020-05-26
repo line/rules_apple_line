@@ -16,6 +16,7 @@ load("//apple:metal_library.bzl", _metal_library = "metal_library")
 load("//apple:mixed_static_framework.bzl", _mixed_static_framework = "mixed_static_framework")
 load("//apple:module_map.bzl", _module_map = "module_map")
 load("//apple:objc_static_framework.bzl", _objc_static_framework = "objc_static_framework")
+load("//apple:swift_static_framework.bzl", _swift_static_framework = "swift_static_framework")
 
 # No need for any implementation here. The rules need only be loaded for the
 # documentation generation purpose.
@@ -26,3 +27,4 @@ metal_library = _metal_library
 mixed_static_framework = _mixed_static_framework
 module_map = _module_map
 objc_static_framework = _objc_static_framework
+swift_static_framework = _swift_static_framework
