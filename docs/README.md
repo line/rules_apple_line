@@ -185,3 +185,61 @@ it builds frameworks.
 | <a name="objc_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through to the underlying     <code>objc_library</code> rule.   |  none |
 
 
+<a name="#swift_static_framework"></a>
+
+## swift_static_framework
+
+<pre>
+swift_static_framework(<a href="#swift_static_framework-name">name</a>, <a href="#swift_static_framework-srcs">srcs</a>, <a href="#swift_static_framework-copts">copts</a>, <a href="#swift_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#swift_static_framework-deps">deps</a>, <a href="#swift_static_framework-data">data</a>, <a href="#swift_static_framework-visibility">visibility</a>, <a href="#swift_static_framework-minimum_os_version">minimum_os_version</a>,
+                       <a href="#swift_static_framework-kwargs">kwargs</a>)
+</pre>
+
+Builds and bundles a Swift static framework for Xcode consumption or third-party distribution.
+
+This rule in general is very similar to `build_bazel_rules_apple`'s
+`ios_static_framework` rule, with some differences:
+
+* It supports bundling a swift_library target that depend transitively on
+    any other swift_library targets. By default, it will not link any of
+    its dependencies into the final framework binary - the same way Xcode
+    does when it builds frameworks - which means you can prebuild your
+    dependencies as static frameworks for Xcode consumption.
+* It supports header maps out of the box--you don't need to change your
+    imports to make your code build with Bazel.
+* It always collects the Swift generated header and bundles a
+    `module.modulemap` file.
+* It bundles `swiftmodule` and `swiftdoc` files (`ios_static_framework`
+    rule bundles `swiftinterface` instead of `swiftmodule` file).
+
+Under the hood, this uses an `objc_library` target to wrap a
+`swift_library` target -- so by a sense, it's still a mixed Obj-C and Swift
+target - to make use of `objc_library`'s configuration transition.
+
+### Examples
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:swift_static_framework.bzl", "swift_static_framework")
+
+swift_static_framework(
+    name = "MyLibrary",
+    srcs = glob(["**/*.swift"]),
+)
+```
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a name="swift_static_framework-name"></a>name |  A unique name for this target. This will be the name of the     library target that the framework depends on. The framework target     will be named <code>${name}Framework</code>.   |  none |
+| <a name="swift_static_framework-srcs"></a>srcs |  The list of Swift source files to compile.   |  none |
+| <a name="swift_static_framework-copts"></a>copts |  Additional compiler options that should be passed to <code>swiftc</code>.   |  <code>[]</code> |
+| <a name="swift_static_framework-swiftc_inputs"></a>swiftc_inputs |  Additional files that are referenced using <code>$(rootpath     ...)</code> and <code>$(execpath ...)</code> in attributes that support location     expansion (e.g. <code>copts</code>).   |  <code>[]</code> |
+| <a name="swift_static_framework-deps"></a>deps |  A list of targets that are dependencies of the target being built.     Note that, by default, none of these and all of their transitive     dependencies will be linked into the final binary when building the     <code>${name}Framework</code> target.   |  <code>[]</code> |
+| <a name="swift_static_framework-data"></a>data |  The list of files needed by this rule at runtime. These will be     bundled to the top level directory of the bundling target (<code>.app</code> or     <code>.framework</code>).   |  <code>[]</code> |
+| <a name="swift_static_framework-visibility"></a>visibility |  The visibility specifications for this target.   |  <code>["//visibility:public"]</code> |
+| <a name="swift_static_framework-minimum_os_version"></a>minimum_os_version |  <p align="center"> - </p>   |  <code>"11.0"</code> |
+| <a name="swift_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
+
+
