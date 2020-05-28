@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_11.4.app
+        run: sudo xcode-select -s /Applications/Xcode_11.5.app
       - name: Build
         run: bazelisk build --subcommands //examples/ios/PureSwift:PureSwiftFramework //examples/ios/PureObjC:PureObjCFramework //examples/ios/Mixed:MixedFramework

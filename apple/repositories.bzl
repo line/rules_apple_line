@@ -56,14 +56,14 @@ def linecorp_rules_apple_dependencies():
         git_repository,
         name = "build_bazel_rules_apple",
         remote = "https://github.com/bazelbuild/rules_apple.git",
-        commit = "3bbee3a593d1f6ddb3391ba3a99ffe3f09a4821b",
+        commit = "74eca5857a136b9f1e2020886be76b791eb08231",
     )
 
     _maybe(
         git_repository,
         name = "build_bazel_rules_swift",
         remote = "https://github.com/bazelbuild/rules_swift.git",
-        commit = "1b0fd91696928ce940bcc220f36c898694f10115",
+        commit = "6408d85da799ec2af053c4e2883dce3ce6d30f08",
     )
 
     _maybe(
