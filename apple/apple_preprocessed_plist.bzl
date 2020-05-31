@@ -42,8 +42,12 @@ _apple_preprocessed_plist = rule(
         ),
     },
     doc = """
-This rule generates the plist given the provided keys and values to be used for
-the substitution. Note that this does not compile your plist into the binary
+Generates the plist given the provided keys and values to be used for the
+substitution.  By default, Bazel only supports a limited set of variable
+substitutions when handling Info.plists --- use this rule to preprocess them
+before passing them to the official rules.  See [rules_apple's Variable
+Substitution](https://github.com/bazelbuild/rules_apple/blob/d77d5b96293344a96176c1f93da5af5dee23d0f5/doc/common_info.md#variable-substitution)
+for more details.  Note that this does not compile your plist into the binary
 format.
 """,
     fragments = ["apple"],

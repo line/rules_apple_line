@@ -12,6 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+load("//apple:apple_preprocessed_plist.bzl", _apple_preprocessed_plist = "apple_preprocessed_plist")
 load("//apple:metal_library.bzl", _metal_library = "metal_library")
 load("//apple:mixed_static_framework.bzl", _mixed_static_framework = "mixed_static_framework")
 load("//apple:module_map.bzl", _module_map = "module_map")
@@ -23,6 +24,7 @@ load("//apple:swift_static_framework.bzl", _swift_static_framework = "swift_stat
 
 # This aliasing isn't mentioned in the documentation, but the `stardoc` rule is
 # broken without it.
+apple_preprocessed_plist = _apple_preprocessed_plist
 metal_library = _metal_library
 mixed_static_framework = _mixed_static_framework
 module_map = _module_map

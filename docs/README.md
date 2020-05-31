@@ -44,6 +44,28 @@ Generates a module map given a list of header files.
 | <a name="module_map-textual_hdrs"></a>textual_hdrs |  The list of C, C++, Objective-C, and Objective-C++ header files used to construct the module map. Unlike hdrs, these will be declared as 'textual header' in the module map.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 
 
+<a name="#apple_preprocessed_plist"></a>
+
+## apple_preprocessed_plist
+
+<pre>
+apple_preprocessed_plist(<a href="#apple_preprocessed_plist-name">name</a>, <a href="#apple_preprocessed_plist-src">src</a>, <a href="#apple_preprocessed_plist-out">out</a>, <a href="#apple_preprocessed_plist-substitutions">substitutions</a>, <a href="#apple_preprocessed_plist-kwargs">kwargs</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a name="apple_preprocessed_plist-name"></a>name |  <p align="center"> - </p>   |  none |
+| <a name="apple_preprocessed_plist-src"></a>src |  <p align="center"> - </p>   |  none |
+| <a name="apple_preprocessed_plist-out"></a>out |  <p align="center"> - </p>   |  none |
+| <a name="apple_preprocessed_plist-substitutions"></a>substitutions |  <p align="center"> - </p>   |  none |
+| <a name="apple_preprocessed_plist-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
+
+
 <a name="#mixed_static_framework"></a>
 
 ## mixed_static_framework
