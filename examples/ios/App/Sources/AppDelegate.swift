@@ -12,14 +12,20 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-import Foundation
+import UIKit
 
-public class SwiftGreeter: NSObject {
-    @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
-    }
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
 
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = ViewController()
+        window?.makeKeyAndVisible()
+
+        return true
     }
 }

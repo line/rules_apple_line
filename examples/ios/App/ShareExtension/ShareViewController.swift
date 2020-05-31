@@ -12,14 +12,20 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-import Foundation
+import UIKit
+import Social
 
-public class SwiftGreeter: NSObject {
-    @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
+class ShareViewController: SLComposeServiceViewController {
+
+    override func isContentValid() -> Bool {
+        return true
     }
 
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
+    override func didSelectPost() {
+        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+    }
+
+    override func configurationItems() -> [Any]! {
+        return []
     }
 }

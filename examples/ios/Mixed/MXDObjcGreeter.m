@@ -12,10 +12,17 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-#import <Foundation/Foundation.h>
+#import "MXDObjcGreeter.h"
+#import <Mixed/Mixed-Swift.h>
 
-@interface ObjcGreeter : NSObject
+@implementation MXDObjcGreeter
 
-+ (void)sayHi:(NSString *)name;
++ (void)sayHi:(NSString *)name {
+    printf("Hi %s\n from ObjC", [name UTF8String]);
+}
+
++ (void)callSwift:(NSString *)name {
+    [SwiftGreeter sayHiWithName:name];
+}
 
 @end

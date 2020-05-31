@@ -12,14 +12,12 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
+import WatchKit
 import Foundation
+import SwiftUI
 
-public class SwiftGreeter: NSObject {
-    @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
-    }
-
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
+class HostingController: WKHostingController<ContentView> {
+    override var body: ContentView {
+        return ContentView()
     }
 }
