@@ -12,14 +12,16 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-import Foundation
+import SwiftUI
 
-public class SwiftGreeter: NSObject {
-    @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
+struct ContentView: View {
+    var body: some View {
+        Text("Hello, World!")
     }
+}
 
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }

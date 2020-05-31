@@ -12,17 +12,24 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-#import "ObjcGreeter.h"
-#import <Mixed/Mixed-Swift.h>
+import Mixed
+import PureObjC
+import PureSwift
+import UIKit
 
-@implementation ObjcGreeter
+class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 
-+ (void)sayHi:(NSString *)name {
-    printf("Hi %s\n from ObjC", [name UTF8String]);
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let name = "LINE"
+        PureObjC.ObjcGreeter.sayHi(name)
+        PureSwift.SwiftGreeter.sayHi(name: name)
+        Mixed.MXDObjcGreeter.sayHi(name)
+        Mixed.SwiftGreeter.sayHi(name: name)
+    }
 }
-
-+ (void)callSwift:(NSString *)name {
-    [SwiftGreeter sayHiWithName:name];
-}
-
-@end

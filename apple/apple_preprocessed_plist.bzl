@@ -2,7 +2,7 @@ load("//apple:string_dict_select_values.bzl", "string_dict_select_values")
 
 def _impl(ctx):
     substitutions = {}
-    for key, value in ctx.attr.items():
+    for key, value in zip(ctx.attr.keys, ctx.attr.values):
         substitutions["${" + key + "}"] = value
         substitutions["$(" + key + ")"] = value
 
