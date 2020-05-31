@@ -32,7 +32,5 @@
 	</dict>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_NAME).ExtensionDelegate</string>
-	<key>WKWatchOnly</key>
-	<true/>
 </dict>
 </plist>

@@ -19,7 +19,7 @@ load(
     "//examples/ios/App/Sources:constants.bzl",
     "APP_IDENTIFIER",
     "DEFAULT_MINIMUM_WATCHOS_VERSION",
-    "INFO_PLIST_DICT",
+    "EXTENSION_INFO_PLIST_DICT",
 )
 
 watchos_extension(
@@ -45,5 +45,5 @@ apple_preprocessed_plist(
     name = "PreprocessedInfoPlist",
     src = "Info.plist",
     out = "Info-Preprocessed.plist",
-    substitutions = INFO_PLIST_DICT,
+    substitutions = EXTENSION_INFO_PLIST_DICT,
 )
