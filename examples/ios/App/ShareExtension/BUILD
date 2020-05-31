@@ -5,7 +5,7 @@ load(
     "//examples/ios/App/Sources:constants.bzl",
     "APP_IDENTIFIER",
     "DEFAULT_MINIMUM_OS_VERSION",
-    "INFO_PLIST_DICT",
+    "EXTENSION_INFO_PLIST_DICT",
 )
 
 swift_static_framework(
@@ -18,7 +18,7 @@ apple_preprocessed_plist(
     name = "PreprocessedInfoPlist",
     src = "Info.plist",
     out = "Info-Preprocessed.plist",
-    substitutions = INFO_PLIST_DICT,
+    substitutions = EXTENSION_INFO_PLIST_DICT,
 )
 
 ios_extension(
