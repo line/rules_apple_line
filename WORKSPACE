@@ -15,26 +15,30 @@
 workspace(name = "com_linecorp_bazel_rules_apple")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("//apple:repositories.bzl", "linecorp_rules_apple_dependencies")
+
 linecorp_rules_apple_dependencies()
 
 load(
     "@build_bazel_apple_support//lib:repositories.bzl",
     "apple_support_dependencies",
 )
+
 apple_support_dependencies()
 
 load(
     "@build_bazel_rules_apple//apple:repositories.bzl",
     "apple_rules_dependencies",
 )
+
 apple_rules_dependencies()
 
 load(
     "@build_bazel_rules_swift//swift:repositories.bzl",
     "swift_rules_dependencies",
 )
+
 swift_rules_dependencies()
 
 load(
@@ -45,6 +49,7 @@ load(
 protobuf_deps()
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+
 bazel_skylib_workspace()
 
 git_repository(
@@ -52,5 +57,26 @@ git_repository(
     commit = "87545335ef7fb248051a7e049e88177ac8168c03",
     remote = "https://github.com/bazelbuild/stardoc.git",
 )
+
 load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
+
 stardoc_repositories()
+
+http_archive(
+    name = "io_bazel_rules_go",
+    sha256 = "b9aa86ec08a292b97ec4591cf578e020b35f98e12173bbd4a921f84f583aebd9",
+    url = "https://github.com/bazelbuild/rules_go/releases/download/v0.20.2/rules_go-v0.20.2.tar.gz",
+)
+
+load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+
+go_rules_dependencies()
+
+go_register_toolchains()
+
+http_archive(
+    name = "com_github_bazelbuild_buildtools",
+    sha256 = "66e047cd1804e3115447fcb64870a9e721ced8c0e500a906824e3ae8af912e78",
+    strip_prefix = "buildtools-3.2.0",
+    urls = ["https://github.com/bazelbuild/buildtools/archive/3.2.0.tar.gz"],
+)

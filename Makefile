@@ -16,3 +16,7 @@
 docs:
 	@bazel build //docs --nocheck_visibility
 	@cp -f bazel-bin/docs/README.md docs
+
+.PHONY: buildifier
+buildifier:
+	@bazel run //tools/buildifier
