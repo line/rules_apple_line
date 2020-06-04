@@ -31,6 +31,7 @@ load(
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load(":headermap_support.bzl", "headermap_support")
 load(":module_map.bzl", "module_map")
+load(":objc_module_map_config.bzl", "objc_module_map_config")
 load(
     ":common.bzl",
     "DEFAULT_MINIMUM_OS_VERSION",
@@ -413,18 +414,18 @@ def mixed_static_framework(
     umbrella_module_map = name + "Module"
     objc_deps += [name + "Module"]
 
-    # TODO: Extract module deps to a separate attribute, because iterating
-    # through `deps` prevents the use of `select`.
-    for dep in deps:
-        if dep.startswith(":"):
-            continue
-        if dep.startswith("@//"):
-            continue
-        label = Label(dep)
-        dep_name = Label("@" + label.workspace_name + "//" + label.package + ":" + label.name + "Module")
-        objc_copts += ["-fmodule-map-file=$(execpath {})".format(dep_name)]
-        objc_deps += [dep_name]
-
+    objc_module_map_config_name = name + "_module_maps"
+    objc_module_map_config(
+        name = objc_module_map_config_name,
+        deps = deps,
+        out = name + "_module_map_config.cfg",
+    )
+    objc_deps += [":" + objc_module_map_config_name]
+    if deps:
+        objc_copts += [
+            "--config",
+            "$(execpath {})".format(":" + objc_module_map_config_name),
+        ]
     native.objc_library(
         name = objc_library_name,
         module_map = umbrella_module_map,
@@ -432,7 +433,13 @@ def mixed_static_framework(
         includes = includes,
         srcs = objc_srcs,
         non_arc_srcs = non_arc_srcs,
-        hdrs = hdrs,
+        hdrs = hdrs + [
+            # These aren't headers but here is the only place to declare these
+            # files as the inputs because objc_library doesn't have an attribute
+            # to declare custom inputs.
+            ":" + objc_module_map_config_name,
+            ":" + umbrella_module_map,
+        ],
         textual_hdrs = textual_hdrs,
         copts = objc_copts,
         deps = objc_deps,

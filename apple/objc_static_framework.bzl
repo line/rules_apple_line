@@ -18,6 +18,7 @@ load("@build_bazel_rules_apple//apple:ios.bzl", "ios_static_framework")
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load(":headermap_support.bzl", "headermap_support")
 load(":module_map.bzl", "module_map")
+load(":objc_module_map_config.bzl", "objc_module_map_config")
 load(
     ":common.bzl",
     "DEFAULT_MINIMUM_OS_VERSION",
@@ -126,6 +127,7 @@ def objc_static_framework(
         if extension in HEADERS_FILE_TYPES:
             private_hdrs.append(x)
 
+    module_map_name = name + "Module"
     module_map(
         name = name + "Module",
         hdrs = hdrs,
@@ -148,18 +150,6 @@ def objc_static_framework(
     if enable_modules:
         copts += ["-fmodules"]
 
-    # Collect all transitive module maps and pass them to Clang manually, since
-    # Bazel doesn't support modules for Objective-C.
-    for dep in deps:
-        if dep.startswith(":"):
-            continue
-        if dep.startswith("@//"):
-            continue
-        label = Label(dep)
-        dep_name = Label("@" + label.workspace_name + "//" + label.package + ":" + label.name + "Module")
-        copts += ["-fmodule-map-file=$(execpath {})".format(dep_name)]
-        deps = deps + [dep_name]
-
     headermaps = headermap_support(
         name = name,
         module_name = module_name,
@@ -172,7 +162,7 @@ def objc_static_framework(
         headermaps["private_hmap"],
         headermaps["private_angled_hmap"],
     ]
-    deps = deps + headermap_deps
+    objc_deps = deps + headermap_deps
     copts += headermaps["headermap_copts"]
 
     if archives:
@@ -185,7 +175,7 @@ def objc_static_framework(
             includes = includes,
             testonly = testonly,
         )
-        deps += [":" + name + "Import"]
+        objc_deps += [":" + name + "Import"]
         avoid_deps = []
 
         # objc_library needs at least a source file
@@ -196,10 +186,29 @@ def objc_static_framework(
         )
         srcs = [":{}Dummy.m".format(name)]
 
+    objc_module_map_config_name = name + "_module_maps"
+    objc_module_map_config(
+        name = objc_module_map_config_name,
+        deps = deps,
+        out = name + "_module_map_config.cfg",
+    )
+    objc_deps += [":" + objc_module_map_config_name]
+    if deps:
+        copts += [
+            "--config",
+            "$(execpath {})".format(":" + objc_module_map_config_name),
+        ]
+
     native.objc_library(
         name = name,
-        module_map = name + "Module",
-        hdrs = hdrs,
+        module_map = module_map_name,
+        hdrs = hdrs + [
+            # These aren't headers but here is the only place to declare these
+            # files as the inputs because objc_library doesn't have an attribute
+            # to declare custom inputs.
+            ":" + objc_module_map_config_name,
+            ":" + module_map_name,
+        ],
         srcs = srcs,
         non_arc_srcs = non_arc_srcs,
         pch = pch,
@@ -209,7 +218,7 @@ def objc_static_framework(
         copts = copts,
         defines = kwargs.get("defines", []),
         visibility = visibility,
-        deps = deps,
+        deps = objc_deps,
         data = data,
         sdk_dylibs = kwargs.get("sdk_dylibs", []),
         sdk_frameworks = kwargs.get("sdk_frameworks", []),
