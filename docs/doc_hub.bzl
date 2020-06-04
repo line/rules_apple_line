@@ -16,6 +16,7 @@ load("//apple:apple_preprocessed_plist.bzl", _apple_preprocessed_plist = "apple_
 load("//apple:metal_library.bzl", _metal_library = "metal_library")
 load("//apple:mixed_static_framework.bzl", _mixed_static_framework = "mixed_static_framework")
 load("//apple:module_map.bzl", _module_map = "module_map")
+load("//apple:objc_module_map_config.bzl", _objc_module_map_config = "objc_module_map_config")
 load("//apple:objc_static_framework.bzl", _objc_static_framework = "objc_static_framework")
 load("//apple:swift_static_framework.bzl", _swift_static_framework = "swift_static_framework")
 
@@ -28,5 +29,6 @@ apple_preprocessed_plist = _apple_preprocessed_plist
 metal_library = _metal_library
 mixed_static_framework = _mixed_static_framework
 module_map = _module_map
+objc_module_map_config = _objc_module_map_config
 objc_static_framework = _objc_static_framework
 swift_static_framework = _swift_static_framework
