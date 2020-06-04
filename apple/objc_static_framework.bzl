@@ -19,6 +19,7 @@ load("@bazel_skylib//lib:paths.bzl", "paths")
 load(":headermap_support.bzl", "headermap_support")
 load(":module_map.bzl", "module_map")
 load(":objc_module_map_config.bzl", "objc_module_map_config")
+load(":unique_symbol_file.bzl", "unique_symbol_file")
 load(
     ":common.bzl",
     "DEFAULT_MINIMUM_OS_VERSION",
@@ -178,13 +179,14 @@ def objc_static_framework(
         objc_deps += [":" + name + "Import"]
         avoid_deps = []
 
-        # objc_library needs at least a source file
-        native.genrule(
-            name = name + "Dummy",
-            outs = [name + "Dummy.m"],
-            cmd = "touch $@",
+    # objc_library needs at least a source file
+    if not srcs:
+        unique_symbol_name = name + "UniqueSymbol"
+        unique_symbol_file(
+            name = unique_symbol_name,
+            out = name + "UniqueSymbol.m",
         )
-        srcs = [":{}Dummy.m".format(name)]
+        srcs = [":{}".format(unique_symbol_name)]
 
     objc_module_map_config_name = name + "_module_maps"
     objc_module_map_config(
