@@ -26,6 +26,14 @@ def apple_resource_bundle(
         infoplists,
         bundle_id = None,
         **kwargs):
+    """
+    To use this rule in your BUILD files, load it with:
+
+    ```starlark
+    load("@com_linecorp_bazel_rules_apple//apple:apple_resource_bundle.bzl", "apple_resource_bundle")
+    ```
+    """
+
     # Replace DEVELOPMENT_LANGUAGE with "en" and PRODUCT_BUNDLE_IDENTIFIER with
     # a generated value so that it can be used with Bazel.
 

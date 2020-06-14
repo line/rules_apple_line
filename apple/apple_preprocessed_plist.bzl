@@ -49,6 +49,12 @@ before passing them to the official rules.  See [rules_apple's Variable
 Substitution](https://github.com/bazelbuild/rules_apple/blob/d77d5b96293344a96176c1f93da5af5dee23d0f5/doc/common_info.md#variable-substitution)
 for more details.  Note that this does not compile your plist into the binary
 format.
+
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:apple_preprocessed_plist.bzl", "apple_preprocessed_plist")
+```
 """,
     fragments = ["apple"],
     implementation = _impl,

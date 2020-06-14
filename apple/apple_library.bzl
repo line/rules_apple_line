@@ -17,6 +17,12 @@ load(":mixed_static_framework.bzl", "mixed_static_framework")
 def apple_library(**kwargs):
     """Compiles and links Objective-C and Swift code into a static library.
 
+    To use this rule in your BUILD files, load it with:
+
+    ```starlark
+    load("@com_linecorp_bazel_rules_apple//apple:apple_library.bzl", "apple_library")
+    ```
+
     See [mixed_static_framework](#mixed_static_framework) for the documentation
     of each attribute.
     """

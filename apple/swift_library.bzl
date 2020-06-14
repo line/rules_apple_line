@@ -22,6 +22,12 @@ def swift_library(**kwargs):
     rule, with added supports for header maps, and better integration with other
     rules in this repository.
 
+    To use this rule in your BUILD files, load it with:
+
+    ```starlark
+    load("@com_linecorp_bazel_rules_apple//apple:objc_library.bzl", "objc_library")
+    ```
+
     See [swift_static_framework](#swift_static_framework) for the documentation
     of each attribute.
     """

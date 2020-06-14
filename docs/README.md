@@ -10,6 +10,12 @@ metal_library(<a href="#metal_library-name">name</a>, <a href="#metal_library-ou
 
 Compiles Metal Shading Language source code into a Metal library.
 
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:metal_library.bzl", "metal_library")
+```
+
 
 **ATTRIBUTES**
 
@@ -76,6 +82,12 @@ apple_library(<a href="#apple_library-kwargs">kwargs</a>)
 </pre>
 
 Compiles and links Objective-C and Swift code into a static library.
+
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:apple_library.bzl", "apple_library")
+```
 
 See [mixed_static_framework](#mixed_static_framework) for the documentation
 of each attribute.
@@ -221,6 +233,12 @@ A drop-in replacement of the native
 [objc_library](https://docs.bazel.build/versions/3.2.0/be/objective-c.html#objc_library)
 rule, with added supports for header maps and modules.
 
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:objc_library.bzl", "objc_library")
+```
+
 See [objc_static_framework](#objc_static_framework) for the documentation
 of each attribute.
 
@@ -292,6 +310,12 @@ A drop-in replacement of the official
 [swift_library](https://github.com/bazelbuild/rules_swift/blob/master/doc/rules.md#swift_library)
 rule, with added supports for header maps, and better integration with other
 rules in this repository.
+
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:objc_library.bzl", "objc_library")
+```
 
 See [swift_static_framework](#swift_static_framework) for the documentation
 of each attribute.

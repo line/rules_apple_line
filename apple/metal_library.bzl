@@ -115,6 +115,12 @@ An output `.metallib` filename. Defaults to `default.metallib` if unspecified.
     }),
     doc = """\
 Compiles Metal Shading Language source code into a Metal library.
+
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@com_linecorp_bazel_rules_apple//apple:metal_library.bzl", "metal_library")
+```
 """,
     fragments = ["apple"],
     implementation = _metal_library_impl,
