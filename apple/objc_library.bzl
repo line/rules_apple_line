@@ -12,9 +12,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Produces a static library from the given Objective-C source files."""
-
 load(":objc_static_framework.bzl", "objc_static_framework")
 
 def objc_library(**kwargs):
+    """Produces a static library from the given Objective-C source files.
+
+    A drop-in replacement of the native
+    [objc_library](https://docs.bazel.build/versions/3.2.0/be/objective-c.html#objc_library)
+    rule, with added supports for header maps and modules.
+
+    See [objc_static_framework](#objc_static_framework) for the documentation
+    of each attribute.
+    """
     objc_static_framework(**kwargs)

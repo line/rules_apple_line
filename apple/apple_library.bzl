@@ -12,9 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Compiles and links Objective-C and Swift code into a static library."""
-
 load(":mixed_static_framework.bzl", "mixed_static_framework")
 
 def apple_library(**kwargs):
+    """Compiles and links Objective-C and Swift code into a static library.
+
+    See [mixed_static_framework](#mixed_static_framework) for the documentation
+    of each attribute.
+    """
     mixed_static_framework(**kwargs)

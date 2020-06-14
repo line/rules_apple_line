@@ -12,9 +12,17 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Compiles and links Swift code into a static library and Swift module."""
-
 load(":swift_static_framework.bzl", "swift_static_framework")
 
 def swift_library(**kwargs):
+    """Compiles and links Swift code into a static library and Swift module.
+
+    A drop-in replacement of the official
+    [swift_library](https://github.com/bazelbuild/rules_swift/blob/master/doc/rules.md#swift_library)
+    rule, with added supports for header maps, and better integration with other
+    rules in this repository.
+
+    See [swift_static_framework](#swift_static_framework) for the documentation
+    of each attribute.
+    """
     swift_static_framework(**kwargs)

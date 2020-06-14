@@ -67,6 +67,27 @@ for all direct and transitive module maps from dependencies.
 | <a name="objc_module_map_config-out"></a>out |  The output filename of the Clang configuration file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
 
 
+<a name="#apple_library"></a>
+
+## apple_library
+
+<pre>
+apple_library(<a href="#apple_library-kwargs">kwargs</a>)
+</pre>
+
+Compiles and links Objective-C and Swift code into a static library.
+
+See [mixed_static_framework](#mixed_static_framework) for the documentation
+of each attribute.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a name="apple_library-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
+
+
 <a name="#apple_preprocessed_plist"></a>
 
 ## apple_preprocessed_plist
@@ -186,6 +207,31 @@ mixed_static_framework(
 | <a name="mixed_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
 
 
+<a name="#objc_library"></a>
+
+## objc_library
+
+<pre>
+objc_library(<a href="#objc_library-kwargs">kwargs</a>)
+</pre>
+
+Produces a static library from the given Objective-C source files.
+
+A drop-in replacement of the native
+[objc_library](https://docs.bazel.build/versions/3.2.0/be/objective-c.html#objc_library)
+rule, with added supports for header maps and modules.
+
+See [objc_static_framework](#objc_static_framework) for the documentation
+of each attribute.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a name="objc_library-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
+
+
 <a name="#objc_static_framework"></a>
 
 ## objc_static_framework
@@ -230,6 +276,32 @@ it builds frameworks.
 | <a name="objc_static_framework-visibility"></a>visibility |  The visibility specifications for this target.   |  <code>["//visibility:public"]</code> |
 | <a name="objc_static_framework-umbrella_header"></a>umbrella_header |  An optional single <code>.h</code> file to use as the umbrella     header for this framework. Usually, this header will have the same name     as this target, so that clients can load the header using the #import     &lt;MyFramework/MyFramework.h&gt; format. If this attribute is not specified     (the common use case), an umbrella header will be generated under the     same name as this target.   |  <code>None</code> |
 | <a name="objc_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through to the underlying     <code>objc_library</code> rule.   |  none |
+
+
+<a name="#swift_library"></a>
+
+## swift_library
+
+<pre>
+swift_library(<a href="#swift_library-kwargs">kwargs</a>)
+</pre>
+
+Compiles and links Swift code into a static library and Swift module.
+
+A drop-in replacement of the official
+[swift_library](https://github.com/bazelbuild/rules_swift/blob/master/doc/rules.md#swift_library)
+rule, with added supports for header maps, and better integration with other
+rules in this repository.
+
+See [swift_static_framework](#swift_static_framework) for the documentation
+of each attribute.
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a name="swift_library-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 
 <a name="#swift_static_framework"></a>
