@@ -3,28 +3,34 @@
 This repository contains additional rules for Bazel that can be used to bundle
 applications for Apple platforms.
 
-## Why?
+## Overview
 
-[Bazel](http://bazel.build) is a build system with advanced support for local
-and distributed caching. It has been adopted for many large and
-complex software projects. It has been supporting building for Apple platforms
-for a long time, and is being used at multiple companies to build fairly large
-iOS apps.  However, due to the differences in conventions and assumptions
-between how Bazel and Xcode build apps, the migration path from Xcode to Bazel
-has not been very straightforward.  In most cases, to adopt Bazel for a typical
-iOS project, you would have to do a lot of initial work, including but not
-limited to: changing your code to follow Bazel's conventions, adding support
-for header maps, adding support for mixed Swift & Objective-C modules, etc.
+[Bazel](http://bazel.build)'s official rules for Apple platforms lack many of
+the features that are conventionally important in the Apple community in
+general, notably: supports for header maps, Clang modules and mixed language
+targets. This repository implements those features and exposes them as drop-in
+replacements for the official Apple rules.
 
-We have been going through many of those problems, and this repository is how
-we are solving them.  We hope open-sourcing our implementation of these Bazel
-rules could help more developers find it easier to adopt Bazel to build your
-apps.
+## Build Definitions
 
-## Reference documentation
+### Library Rules
 
-[Click here](docs) for the reference documentation for the rules and other
-definitions in this repository.
+* [apple_library](docs/README.md#apple_library)
+* [metal_library](docs/README.md#metal_library)
+* [objc_library](docs/README.md#objc_library)
+* [swift_library](docs/README.md#swift_library)
+
+### Bundling Rules
+
+* [mixed_static_framework](docs/README.md#mixed_static_framework)
+* [objc_static_framework](docs/README.md#objc_static_framework)
+* [swift_static_framework](docs/README.md#swift_static_framework)
+
+### Other Rules
+
+* [apple_preprocessed_plist](docs/README.md#apple_preprocessed_plist)
+* [apple_resource_bundle](docs/README.md#apple_resource_bundle)
+* [module_map](docs/README.md#module_map)
 
 ## Quick setup
 
