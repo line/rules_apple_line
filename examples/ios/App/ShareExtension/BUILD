@@ -1,4 +1,4 @@
-load("//apple:swift_static_framework.bzl", "swift_static_framework")
+load("//apple:swift_library.bzl", "swift_library")
 load("//apple:apple_preprocessed_plist.bzl", "apple_preprocessed_plist")
 load("@build_bazel_rules_apple//apple:ios.bzl", "ios_extension")
 load(
@@ -8,7 +8,7 @@ load(
     "EXTENSION_INFO_PLIST_DICT",
 )
 
-swift_static_framework(
+swift_library(
     name = "ShareExtension",
     srcs = glob(["**/*.swift"]),
     data = glob(["**/*.storyboard"]),

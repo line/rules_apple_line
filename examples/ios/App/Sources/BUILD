@@ -13,13 +13,13 @@
 # under the License.
 
 load("//apple:apple_preprocessed_plist.bzl", "apple_preprocessed_plist")
-load("//apple:mixed_static_framework.bzl", "mixed_static_framework")
+load("//apple:apple_library.bzl", "apple_library")
 load(
     "//examples/ios/App/Sources:constants.bzl",
     "INFO_PLIST_DICT",
 )
 
-mixed_static_framework(
+apple_library(
     name = "Main",
     srcs = glob([
         "**/*.swift",

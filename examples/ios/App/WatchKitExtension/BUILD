@@ -14,7 +14,7 @@
 
 load("@build_bazel_rules_apple//apple:watchos.bzl", "watchos_extension")
 load("//apple:apple_preprocessed_plist.bzl", "apple_preprocessed_plist")
-load("//apple:swift_static_framework.bzl", "swift_static_framework")
+load("//apple:swift_library.bzl", "swift_library")
 load(
     "//examples/ios/App/Sources:constants.bzl",
     "APP_IDENTIFIER",
@@ -35,7 +35,7 @@ watchos_extension(
     deps = [":WatchKitExtensionLib"],
 )
 
-swift_static_framework(
+swift_library(
     name = "WatchKitExtensionLib",
     srcs = glob(["**/*.swift"]),
     module_name = "WatchKitExtension",
