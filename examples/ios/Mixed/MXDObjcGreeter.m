@@ -18,7 +18,7 @@
 @implementation MXDObjcGreeter
 
 + (void)sayHi:(NSString *)name {
-    printf("Hi %s\n from ObjC", [name UTF8String]);
+    printf("Hi %s from ObjC\n", [name UTF8String]);
 }
 
 + (void)callSwift:(NSString *)name {
