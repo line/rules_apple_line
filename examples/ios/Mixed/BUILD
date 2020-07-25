@@ -13,7 +13,7 @@
 # under the License.
 
 load(
-    "@com_linecorp_bazel_rules_apple//apple:mixed_static_framework.bzl",
+    "@rules_apple_line//apple:mixed_static_framework.bzl",
     "mixed_static_framework",
 )
 

@@ -30,7 +30,7 @@ def apple_resource_bundle(
     To use this rule in your BUILD files, load it with:
 
     ```starlark
-    load("@com_linecorp_bazel_rules_apple//apple:apple_resource_bundle.bzl", "apple_resource_bundle")
+    load("@rules_apple_line//apple:apple_resource_bundle.bzl", "apple_resource_bundle")
     ```
     """
 

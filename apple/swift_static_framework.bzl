@@ -195,7 +195,7 @@ def swift_static_framework(
     ### Examples
 
     ```starlark
-    load("@com_linecorp_bazel_rules_apple//apple:swift_static_framework.bzl", "swift_static_framework")
+    load("@rules_apple_line//apple:swift_static_framework.bzl", "swift_static_framework")
 
     swift_static_framework(
         name = "MyLibrary",

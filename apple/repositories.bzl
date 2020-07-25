@@ -29,8 +29,8 @@ def _maybe(repo_rule, name, **kwargs):
     if not native.existing_rule(name):
         repo_rule(name = name, **kwargs)
 
-def linecorp_rules_apple_dependencies():
-    """Fetches repositories that are dependencies of the `com_linecorp_bazel_rules_apple` workspace.
+def rules_apple_line_dependencies():
+    """Fetches repositories that are dependencies of the `rules_apple_line` workspace.
 
     Users should call this macro in their `WORKSPACE` to ensure that all of the
     dependencies of the Apple rules are downloaded and that they are isolated from

@@ -20,7 +20,7 @@ def apple_library(**kwargs):
     To use this rule in your BUILD files, load it with:
 
     ```starlark
-    load("@com_linecorp_bazel_rules_apple//apple:apple_library.bzl", "apple_library")
+    load("@rules_apple_line//apple:apple_library.bzl", "apple_library")
     ```
 
     See [mixed_static_framework](#mixed_static_framework) for the documentation

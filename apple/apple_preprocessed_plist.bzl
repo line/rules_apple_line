@@ -53,7 +53,7 @@ format.
 To use this rule in your BUILD files, load it with:
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:apple_preprocessed_plist.bzl", "apple_preprocessed_plist")
+load("@rules_apple_line//apple:apple_preprocessed_plist.bzl", "apple_preprocessed_plist")
 ```
 """,
     fragments = ["apple"],

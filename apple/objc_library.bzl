@@ -24,7 +24,7 @@ def objc_library(**kwargs):
     To use this rule in your BUILD files, load it with:
 
     ```starlark
-    load("@com_linecorp_bazel_rules_apple//apple:objc_library.bzl", "objc_library")
+    load("@rules_apple_line//apple:objc_library.bzl", "objc_library")
     ```
 
     See [objc_static_framework](#objc_static_framework) for the documentation

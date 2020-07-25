@@ -12,13 +12,13 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-workspace(name = "com_linecorp_bazel_rules_apple")
+workspace(name = "rules_apple_line")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("//apple:repositories.bzl", "linecorp_rules_apple_dependencies")
+load("//apple:repositories.bzl", "rules_apple_line_dependencies")
 
-linecorp_rules_apple_dependencies()
+rules_apple_line_dependencies()
 
 load(
     "@build_bazel_apple_support//lib:repositories.bzl",

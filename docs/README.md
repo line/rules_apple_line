@@ -13,7 +13,7 @@ Compiles Metal Shading Language source code into a Metal library.
 To use this rule in your BUILD files, load it with:
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:metal_library.bzl", "metal_library")
+load("@rules_apple_line//apple:metal_library.bzl", "metal_library")
 ```
 
 
@@ -86,7 +86,7 @@ Compiles and links Objective-C and Swift code into a static library.
 To use this rule in your BUILD files, load it with:
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:apple_library.bzl", "apple_library")
+load("@rules_apple_line//apple:apple_library.bzl", "apple_library")
 ```
 
 See [mixed_static_framework](#mixed_static_framework) for the documentation
@@ -179,7 +179,7 @@ The macro contains 3 underlying rules--given `name` is `Greet`:
 ### Examples
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:mixed_static_framework.bzl", "mixed_static_framework")
+load("@rules_apple_line//apple:mixed_static_framework.bzl", "mixed_static_framework")
 
 mixed_static_framework(
     name = "Mixed",
@@ -236,7 +236,7 @@ rule, with added supports for header maps and modules.
 To use this rule in your BUILD files, load it with:
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:objc_library.bzl", "objc_library")
+load("@rules_apple_line//apple:objc_library.bzl", "objc_library")
 ```
 
 See [objc_static_framework](#objc_static_framework) for the documentation
@@ -314,7 +314,7 @@ rules in this repository.
 To use this rule in your BUILD files, load it with:
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:objc_library.bzl", "objc_library")
+load("@rules_apple_line//apple:objc_library.bzl", "objc_library")
 ```
 
 See [swift_static_framework](#swift_static_framework) for the documentation
@@ -361,7 +361,7 @@ target - to make use of `objc_library`'s configuration transition.
 ### Examples
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:swift_static_framework.bzl", "swift_static_framework")
+load("@rules_apple_line//apple:swift_static_framework.bzl", "swift_static_framework")
 
 swift_static_framework(
     name = "MyLibrary",

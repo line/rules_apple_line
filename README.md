@@ -60,8 +60,8 @@ git_repository(
 )
 
 git_repository(
-    name = "com_linecorp_bazel_rules_apple",
-    remote = "https://github.com/line/bazel_rules_apple.git",
+    name = "rules_apple_line",
+    remote = "https://github.com/line/rules_apple_line.git",
     commit = "[SOME_HASH_VALUE]",
 )
 
@@ -87,13 +87,13 @@ load(
 apple_support_dependencies()
 
 load(
-    "@com_linecorp_bazel_rules_apple//apple:repositories.bzl",
-    "linecorp_rules_apple_dependencies",
+    "@rules_apple_line//apple:repositories.bzl",
+    "rules_apple_line_dependencies",
 )
 
 # If you want to lock apple_support, rules_apple and rules_swift to specific
 # versions, be sure to call this function after their repository rules.
-linecorp_rules_apple_dependencies()
+rules_apple_line_dependencies()
 ```
 
 ## Examples
@@ -101,7 +101,7 @@ linecorp_rules_apple_dependencies()
 Minimal example:
 
 ```starlark
-load("@com_linecorp_bazel_rules_apple//apple:mixed_static_framework.bzl", "mixed_static_framework")
+load("@rules_apple_line//apple:mixed_static_framework.bzl", "mixed_static_framework")
 
 mixed_static_framework(
     name = "Mixed",
