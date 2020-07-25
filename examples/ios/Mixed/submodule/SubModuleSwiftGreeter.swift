@@ -13,14 +13,9 @@
 // under the License.
 
 import Foundation
-import submodule
 
-public class SwiftGreeter: NSObject {
+public class SubModuleSwiftGreeter: NSObject {
     @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
-    }
-
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
+        print("Hi \(name) from a Swift SubModule")
     }
 }

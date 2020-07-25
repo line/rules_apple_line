@@ -12,11 +12,14 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-common --strategy=Stardoc=standalone
+load(
+    "@rules_apple_line//apple:swift_library.bzl",
+    "swift_library",
+)
 
-build --swiftcopt=-swift-version
-build --swiftcopt=5
-build --apple_platform_type=ios
-build --ios_multi_cpus=arm64,x86_64
-#build --ios_multi_cpus=x86_64
-build --apple_bitcode=embedded
+swift_library(
+    name = "submodule",
+    srcs = [
+        "SubModuleSwiftGreeter.swift",
+    ],
+)
