@@ -12,14 +12,10 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-import Foundation
+#import <Foundation/Foundation.h>
 
-public class SwiftGreeter: NSObject {
-    @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
-    }
+@interface MXDObjcGreeter : NSObject
 
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
-    }
-}
++ (void)sayHi:(NSString *)name;
+
+@end

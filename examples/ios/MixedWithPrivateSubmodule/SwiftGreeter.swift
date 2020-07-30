@@ -13,6 +13,7 @@
 // under the License.
 
 import Foundation
+@_implementationOnly import submodule
 
 public class SwiftGreeter: NSObject {
     @objc public class func sayHi(name: String) {
@@ -21,5 +22,8 @@ public class SwiftGreeter: NSObject {
 
     @objc public class func callObjC(name: String) {
         MXDObjcGreeter.sayHi(name)
+    }
+    @objc public class func callSubModule(name: String) {
+        submodule.SubModuleSwiftGreeter.sayHi(name: name)
     }
 }

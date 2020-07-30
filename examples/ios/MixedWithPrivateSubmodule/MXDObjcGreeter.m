@@ -12,14 +12,17 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-import Foundation
+#import "MXDObjcGreeter.h"
+#import <MixedWithPrivateSubmodule/MixedWithPrivateSubmodule-Swift.h>
 
-public class SwiftGreeter: NSObject {
-    @objc public class func sayHi(name: String) {
-        print("Hi \(name) from Swift")
-    }
+@implementation MXDObjcGreeter
 
-    @objc public class func callObjC(name: String) {
-        MXDObjcGreeter.sayHi(name)
-    }
++ (void)sayHi:(NSString *)name {
+    printf("Hi %s from ObjC\n", [name UTF8String]);
 }
+
++ (void)callSwift:(NSString *)name {
+    [SwiftGreeter sayHiWithName:name];
+}
+
+@end
