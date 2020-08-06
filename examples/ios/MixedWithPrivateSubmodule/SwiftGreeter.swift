@@ -16,6 +16,9 @@ import Foundation
 @_implementationOnly import submodule
 
 public class SwiftGreeter: NSObject {
+
+    public var submodule_greeter: submodule.SubModuleSwiftGreeter? = nil
+
     @objc public class func sayHi(name: String) {
         print("Hi \(name) from Swift")
     }
