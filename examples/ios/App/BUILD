@@ -12,7 +12,7 @@ ios_application(
     name = "App",
     app_icons = ["//examples/ios/App/Sources:AppIcon"],
     bundle_id = select(APP_IDENTIFIER),
-    bundle_name = select(APP_EXECUTABLE_NAME),
+    executable_name = select(APP_EXECUTABLE_NAME),
     extensions = [
         "//examples/ios/App/ShareExtension:ShareExtension_appex",
     ],
