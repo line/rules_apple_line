@@ -314,7 +314,7 @@ rules in this repository.
 To use this rule in your BUILD files, load it with:
 
 ```starlark
-load("@rules_apple_line//apple:objc_library.bzl", "objc_library")
+load("@rules_apple_line//apple:swift_library.bzl", "swift_library")
 ```
 
 See [swift_static_framework](#swift_static_framework) for the documentation
