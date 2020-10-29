@@ -13,6 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_11.5.app
+        run: sudo xcode-select -s /Applications/Xcode_12.1.app
       - name: Build
         run: bazelisk build --subcommands //examples/ios/PureSwift:PureSwiftFramework //examples/ios/PureObjC:PureObjCFramework //examples/ios/Mixed:MixedFramework //examples/ios/App
+      - name: Package dSYM
+        run: bazelisk build --subcommands --apple_generate_dsym --output_groups=+dsyms //examples/ios/App:App_dSYM

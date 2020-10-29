@@ -14,5 +14,6 @@
 
 common --strategy=Stardoc=standalone
 
+build --action_env=PATH=/bin:/usr/bin
 build --swiftcopt=-swift-version
 build --swiftcopt=5
