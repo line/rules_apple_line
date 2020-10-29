@@ -54,7 +54,7 @@ bazel_skylib_workspace()
 
 git_repository(
     name = "io_bazel_stardoc",
-    commit = "87545335ef7fb248051a7e049e88177ac8168c03",
+    commit = "247c2097e7346778ac8d03de5a4770d6b9890dc5",
     remote = "https://github.com/bazelbuild/stardoc.git",
 )
 

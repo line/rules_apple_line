@@ -29,6 +29,7 @@ bzl_library(
         "@build_bazel_rules_apple//apple:providers.bzl",
         "@build_bazel_rules_swift//swift:swift.bzl",
         "@com_github_ob_rules_ios//rules:hmap.bzl",
+        "@rules_proto//proto:defs.bzl",
     ] + glob(["*.bzl"]),
     visibility = ["//visibility:public"],
 )

@@ -31,6 +31,7 @@ replacements for the official Apple rules.
 * [apple_preprocessed_plist](docs/README.md#apple_preprocessed_plist)
 * [apple_resource_bundle](docs/README.md#apple_resource_bundle)
 * [module_map](docs/README.md#module_map)
+* [pkg_dsym](docs/README.md#pkg_dsym)
 
 ## Quick setup
 
