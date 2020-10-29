@@ -69,8 +69,8 @@ pkg_dsym = rule(
         "srcs": attr.label_list(
             allow_files = True,
             doc = """
-A list of executable targets that also produces dSYM, and/or a list of imported
-dSYMs if they're prebuilt.
+A list of executable targets that produce dSYM, and/or a list of imported dSYMs
+if they're prebuilt.
 """,
         ),
         "timestamp": attr.int(
@@ -86,9 +86,7 @@ be rounded up and the precision in the zip file is limited to a granularity of
         ),
         "mode": attr.string(
             default = "0555",
-            doc = """
-Set the mode of files added by the `srcs` attribute.
-""",
+            doc = "Set the mode of files added by the `srcs` attribute.",
         ),
         "out": attr.output(
             doc = "The output filename.",
@@ -102,5 +100,5 @@ Set the mode of files added by the `srcs` attribute.
         ),
         "_package_dir": attr.string(default = "/"),
     },
-    doc = "Creates a .dSYM.zip file.",
+    doc = "Creates a `.dSYM.zip` file given targets that produce dSYMs.",
 )
