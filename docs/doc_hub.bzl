@@ -20,6 +20,7 @@ load("//apple:module_map.bzl", _module_map = "module_map")
 load("//apple:objc_library.bzl", _objc_library = "objc_library")
 load("//apple:objc_module_map_config.bzl", _objc_module_map_config = "objc_module_map_config")
 load("//apple:objc_static_framework.bzl", _objc_static_framework = "objc_static_framework")
+load("//apple:pkg_dsym.bzl", _pkg_dsym = "pkg_dsym")
 load("//apple:swift_library.bzl", _swift_library = "swift_library")
 load("//apple:swift_static_framework.bzl", _swift_static_framework = "swift_static_framework")
 
@@ -36,5 +37,6 @@ module_map = _module_map
 objc_library = _objc_library
 objc_module_map_config = _objc_module_map_config
 objc_static_framework = _objc_static_framework
+pkg_dsym = _pkg_dsym
 swift_library = _swift_library
 swift_static_framework = _swift_static_framework

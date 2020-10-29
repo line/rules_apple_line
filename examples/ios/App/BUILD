@@ -7,6 +7,7 @@ load(
     "APP_VERSION",
     "DEFAULT_MINIMUM_OS_VERSION",
 )
+load("//apple:pkg_dsym.bzl", "pkg_dsym")
 
 ios_application(
     name = "App",
@@ -46,4 +47,14 @@ apple_bundle_version(
     },
     fallback_build_label = "1980.0101.000000",  # Low number so we can't accidentally upload it.
     visibility = ["//visibility:public"],
+)
+
+pkg_dsym(
+    name = "App_dSYM",
+    out = "App.dSYM.zip",
+    srcs = [
+        ":App",
+        "//examples/ios/App/ShareExtension:ShareExtension_appex",
+        "//examples/ios/App/WatchKitExtension",
+    ],
 )

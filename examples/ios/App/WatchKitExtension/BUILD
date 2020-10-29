@@ -31,7 +31,7 @@ watchos_extension(
         "Assets.xcassets/**",
     ]),
     version = "//examples/ios/App:version",
-    visibility = ["//examples/ios/App/WatchKitApp:__pkg__"],
+    visibility = ["//visibility:public"],
     deps = [":WatchKitExtensionLib"],
 )
 

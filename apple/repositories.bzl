@@ -46,6 +46,16 @@ def rules_apple_line_dependencies():
     )
 
     _maybe(
+        http_archive,
+        name = "rules_pkg",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/0.3.0/rules_pkg-0.3.0.tar.gz",
+            "https://github.com/bazelbuild/rules_pkg/releases/download/0.3.0/rules_pkg-0.3.0.tar.gz",
+        ],
+        sha256 = "6b5969a7acd7b60c02f816773b06fcf32fbe8ba0c7919ccdc2df4f8fb923804a",
+    )
+
+    _maybe(
         git_repository,
         name = "build_bazel_apple_support",
         remote = "https://github.com/bazelbuild/apple_support.git",
