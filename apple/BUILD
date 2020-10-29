@@ -25,7 +25,6 @@ bzl_library(
         "@bazel_skylib//lib:types.bzl",
         "@bazel_tools//tools/build_defs/repo:http.bzl",
         "@build_bazel_apple_support//lib:apple_support.bzl",
-        "@build_bazel_rules_apple//apple/internal:file_support.bzl",
         "@build_bazel_rules_apple//apple:ios.bzl",
         "@build_bazel_rules_apple//apple:providers.bzl",
         "@build_bazel_rules_swift//swift:swift.bzl",
