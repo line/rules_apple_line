@@ -14,9 +14,9 @@
 
 .PHONY: docs
 docs:
-	@bazel build //docs --nocheck_visibility
+	@bazelisk build //docs --nocheck_visibility
 	@cp -f bazel-bin/docs/README.md docs
 
 .PHONY: buildifier
 buildifier:
-	@bazel run //tools/buildifier
+	@bazelisk run //tools/buildifier
