@@ -12,8 +12,6 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Set strict action env
-        run: export PATH=/bin:/usr/bin
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode_12.1.app
       - name: Build
