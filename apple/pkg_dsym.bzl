@@ -31,7 +31,7 @@ def _pkg_dsym_impl(ctx):
     args = ctx.actions.args()
 
     args.add("-o", ctx.outputs.out)
-    args.add("-d", ctx.attr.package_dir)
+    args.add("-d", ctx.attr._package_dir)
     args.add("-t", ctx.attr.timestamp)
     args.add("-m", ctx.attr.mode)
 
@@ -73,7 +73,6 @@ A list of executable targets that also produces dSYM, and/or a list of imported
 dSYMs if they're prebuilt.
 """,
         ),
-        "package_dir": attr.string(default = "/"),
         "timestamp": attr.int(
             default = 315532800,
             doc = """
@@ -94,7 +93,6 @@ Set the mode of files added by the `srcs` attribute.
         "out": attr.output(
             doc = "The output filename.",
         ),
-        "strip_prefix": attr.string(),  # Unused now
         # Implicit dependencies.
         "_build_zip": attr.label(
             default = Label("@rules_pkg//:build_zip"),
@@ -102,6 +100,7 @@ Set the mode of files added by the `srcs` attribute.
             executable = True,
             allow_files = True,
         ),
+        "_package_dir": attr.string(default = "/"),
     },
     doc = "Creates a .dSYM.zip file.",
 )

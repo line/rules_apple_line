@@ -78,7 +78,7 @@ for all direct and transitive module maps from dependencies.
 ## pkg_dsym
 
 <pre>
-pkg_dsym(<a href="#pkg_dsym-name">name</a>, <a href="#pkg_dsym-mode">mode</a>, <a href="#pkg_dsym-out">out</a>, <a href="#pkg_dsym-package_dir">package_dir</a>, <a href="#pkg_dsym-srcs">srcs</a>, <a href="#pkg_dsym-strip_prefix">strip_prefix</a>, <a href="#pkg_dsym-timestamp">timestamp</a>)
+pkg_dsym(<a href="#pkg_dsym-name">name</a>, <a href="#pkg_dsym-mode">mode</a>, <a href="#pkg_dsym-out">out</a>, <a href="#pkg_dsym-srcs">srcs</a>, <a href="#pkg_dsym-timestamp">timestamp</a>)
 </pre>
 
 Creates a .dSYM.zip file.
@@ -91,9 +91,7 @@ Creates a .dSYM.zip file.
 | <a id="pkg_dsym-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="pkg_dsym-mode"></a>mode |  Set the mode of files added by the <code>srcs</code> attribute.   | String | optional | "0555" |
 | <a id="pkg_dsym-out"></a>out |  The output filename.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | optional |  |
-| <a id="pkg_dsym-package_dir"></a>package_dir |  -   | String | optional | "/" |
 | <a id="pkg_dsym-srcs"></a>srcs |  A list of executable targets that also produces dSYM, and/or a list of imported dSYMs if they're prebuilt.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="pkg_dsym-strip_prefix"></a>strip_prefix |  -   | String | optional | "" |
 | <a id="pkg_dsym-timestamp"></a>timestamp |  The time to use for every file in the zip, expressed as seconds since Unix Epoch, RFC 3339.<br><br>Due to limitations in the format of zip files, values before Jan 1, 1980 will be rounded up and the precision in the zip file is limited to a granularity of 2 seconds.   | Integer | optional | 315532800 |
 
 
