@@ -33,6 +33,11 @@ replacements for the official Apple rules.
 * [module_map](docs/README.md#module_map)
 * [pkg_dsym](docs/README.md#pkg_dsym)
 
+## Requirements
+
+The latest versions of **rules_apple** and **rules_swift** rulesets require
+the usage of the [--incompatible_objc_compile_info_migration](https://docs.bazel.build/versions/master/command-line-reference.html#flag--incompatible_objc_compile_info_migration) flag to work correctly.
+
 ## Quick setup
 
 Add the following to your `WORKSPACE` file to add the external repositories,
@@ -136,4 +141,4 @@ License for the specific language governing permissions and limitations
 under the License.
 ```
 
-See [LICENSE](LICENSE) for more detail. 
+See [LICENSE](LICENSE) for more detail.
