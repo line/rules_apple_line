@@ -303,6 +303,7 @@ def mixed_static_framework(
           (the common use case), an umbrella header will be generated under the
           same name as this target.
       visibility: The visibility specifications for this target.
+      minimum_os_version: Minimum os version.
       **kwargs: Additional arguments being passed through.
     """
     swift_srcs = []
