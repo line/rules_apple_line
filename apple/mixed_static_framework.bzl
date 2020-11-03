@@ -469,7 +469,7 @@ def mixed_static_framework(
             ":" + objc_library_name,
         ],
         avoid_deps = avoid_deps,
-        bundle_name = name,
+        bundle_name = module_name,
         minimum_os_version = minimum_os_version,
         umbrella_header = umbrella_header,
     )
