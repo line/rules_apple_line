@@ -230,7 +230,7 @@ def objc_static_framework(
     ios_static_framework(
         name = name + "Framework",
         avoid_deps = avoid_deps,
-        bundle_name = name,
+        bundle_name = module_name,
         hdrs = hdrs + textual_hdrs,
         testonly = testonly,
         minimum_os_version = minimum_os_version,
