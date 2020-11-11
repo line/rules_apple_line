@@ -12,16 +12,18 @@ def _apple_linker_inputs_impl(ctx):
         )
         linkopts.append(expanded_opt)
 
-    linker_inputs = depset(ctx.files.linker_inputs)
+    linkopts_depset = depset(linkopts)
+    linker_inputs_depset = depset(ctx.files.linker_inputs)
+
     objc_provider = apple_common.new_objc_provider(
-        link_inputs = depset(ctx.files.linker_inputs),
-        linkopt = depset(linkopts),
+        link_inputs = linker_inputs_depset,
+        linkopt = linkopts_depset,
     )
 
     cc_linker_input = cc_common.create_linker_input(
-        additional_inputs = depset(ctx.files.linker_inputs),
+        additional_inputs = linker_inputs_depset,
         owner = ctx.label,
-        user_link_flags = depset(linkopts),
+        user_link_flags = linkopts_depset,
     )
     cc_linking_context = cc_common.create_linking_context(
         linker_inputs = depset([cc_linker_input]),
