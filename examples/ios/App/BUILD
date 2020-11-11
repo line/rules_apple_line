@@ -51,10 +51,10 @@ apple_bundle_version(
 
 pkg_dsym(
     name = "App_dSYM",
-    out = "App.dSYM.zip",
     srcs = [
         ":App",
         "//examples/ios/App/ShareExtension:ShareExtension_appex",
         "//examples/ios/App/WatchKitExtension",
     ],
+    out = "App.dSYM.zip",
 )
