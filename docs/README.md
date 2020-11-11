@@ -76,29 +76,6 @@ Generates a module map given a list of header files.
 | <a id="module_map-textual_hdrs"></a>textual_hdrs |  The list of C, C++, Objective-C, and Objective-C++ header files used to construct the module map. Unlike hdrs, these will be declared as 'textual header' in the module map.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
 
 
-<a id="#objc_module_map_config"></a>
-
-## objc_module_map_config
-
-<pre>
-objc_module_map_config(<a href="#objc_module_map_config-name">name</a>, <a href="#objc_module_map_config-deps">deps</a>, <a href="#objc_module_map_config-out">out</a>)
-</pre>
-
-
-Generates a Clang configuration file with all the `-fmodule-map-file` flags
-for all direct and transitive module maps from dependencies.
-
-
-**ATTRIBUTES**
-
-
-| Name  | Description | Type | Mandatory | Default |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="objc_module_map_config-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="objc_module_map_config-deps"></a>deps |  The dependencies from which to retrieve the list of module maps.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |  |
-| <a id="objc_module_map_config-out"></a>out |  The output filename of the Clang configuration file.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
-
-
 <a id="#pkg_dsym"></a>
 
 ## pkg_dsym

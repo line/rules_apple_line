@@ -28,6 +28,7 @@ replacements for the official Apple rules.
 
 ### Other Rules
 
+* [apple_linker_inputs](docs/README.md#apple_linker_inputs)
 * [apple_preprocessed_plist](docs/README.md#apple_preprocessed_plist)
 * [apple_resource_bundle](docs/README.md#apple_resource_bundle)
 * [module_map](docs/README.md#module_map)
