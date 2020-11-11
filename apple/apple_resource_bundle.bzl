@@ -17,8 +17,6 @@ load(
     "@build_bazel_rules_apple//apple:resources.bzl",
     _apple_resource_bundle = "apple_resource_bundle",
 )
-load(":metal_library.bzl", "metal_library")
-load(":common.bzl", "METAL_FILE_TYPES")
 
 def apple_resource_bundle(
         name,
@@ -61,27 +59,14 @@ plutil -replace CFBundleIdentifier -string {} -o $@ -
     )
 
     _resources = []
-    metal_files = []
 
     for file in resources:
         filename = paths.basename(file)
-
-        if filename.endswith(METAL_FILE_TYPES[0]):
-            metal_files.append(file)
-            continue
 
         # Remove the BUILD file and .DS_Store file from resources if
         # accidentally added
         if filename != "BUILD" and filename != ".DS_Store":
             _resources.append(file)
-
-    if metal_files:
-        metal_lib_name = name + "_metallib"
-        metal_library(
-            name = metal_lib_name,
-            srcs = metal_files,
-        )
-        _resources.append(":" + metal_lib_name)
 
     _apple_resource_bundle(
         name = name,
