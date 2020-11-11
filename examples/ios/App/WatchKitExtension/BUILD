@@ -32,7 +32,10 @@ watchos_extension(
     ]),
     version = "//examples/ios/App:version",
     visibility = ["//visibility:public"],
-    deps = [":WatchKitExtensionLib"],
+    deps = [
+        ":WatchKitExtensionLib",
+        "@zld//:zld_linkopts_lib",
+    ],
 )
 
 swift_library(

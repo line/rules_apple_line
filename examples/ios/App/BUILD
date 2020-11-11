@@ -35,7 +35,10 @@ ios_application(
     version = ":version",
     visibility = ["//visibility:public"],
     watch_application = "//examples/ios/App/WatchKitApp",
-    deps = ["//examples/ios/App/Sources:Main"],
+    deps = [
+        "//examples/ios/App/Sources:Main",
+        "@zld//:zld_linkopts_lib",
+    ],
 )
 
 apple_bundle_version(

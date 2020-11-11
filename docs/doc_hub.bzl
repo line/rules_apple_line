@@ -13,6 +13,7 @@
 # under the License.
 
 load("//apple:apple_library.bzl", _apple_library = "apple_library")
+load("//apple:apple_linker_inputs.bzl", _apple_linker_inputs = "apple_linker_inputs")
 load("//apple:apple_preprocessed_plist.bzl", _apple_preprocessed_plist = "apple_preprocessed_plist")
 load("//apple:metal_library.bzl", _metal_library = "metal_library")
 load("//apple:mixed_static_framework.bzl", _mixed_static_framework = "mixed_static_framework")
@@ -30,6 +31,7 @@ load("//apple:swift_static_framework.bzl", _swift_static_framework = "swift_stat
 # This aliasing isn't mentioned in the documentation, but the `stardoc` rule is
 # broken without it.
 apple_library = _apple_library
+apple_linker_inputs = _apple_linker_inputs
 apple_preprocessed_plist = _apple_preprocessed_plist
 metal_library = _metal_library
 mixed_static_framework = _mixed_static_framework

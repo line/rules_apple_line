@@ -33,5 +33,8 @@ ios_extension(
     minimum_os_version = DEFAULT_MINIMUM_OS_VERSION,
     version = "//examples/ios/App:version",
     visibility = ["//examples/ios/App:__pkg__"],
-    deps = [":ShareExtension"],
+    deps = [
+        ":ShareExtension",
+        "@zld//:zld_linkopts_lib",
+    ],
 )
