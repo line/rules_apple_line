@@ -80,3 +80,10 @@ http_archive(
     strip_prefix = "buildtools-3.2.0",
     urls = ["https://github.com/bazelbuild/buildtools/archive/3.2.0.tar.gz"],
 )
+
+http_archive(
+    name = "zld",
+    build_file = "//third_party:zld.BUILD",
+    sha256 = "0b48ad64ddf8fcbc75b872dcf3b0ed427c9c9eeb843ce68383ce22fa8197b7f9",
+    url = "https://github.com/thii/zld/releases/download/1.2.1/zld.tar.xz",
+)

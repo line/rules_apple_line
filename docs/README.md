@@ -1,5 +1,31 @@
 <!-- Generated with Stardoc: http://skydoc.bazel.build -->
 
+<a id="#apple_linker_inputs"></a>
+
+## apple_linker_inputs
+
+<pre>
+apple_linker_inputs(<a href="#apple_linker_inputs-name">name</a>, <a href="#apple_linker_inputs-linker_inputs">linker_inputs</a>, <a href="#apple_linker_inputs-linkopts">linkopts</a>)
+</pre>
+
+
+Provides additional inputs to Apple rules' linker action.
+
+Unlike C++ rules like `cc_binary` and `cc_test`, Apple rules doesn't have any
+mechanism to allow providing additional inputs to the linker action. This
+little rule helps mitigate that.
+
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="apple_linker_inputs-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="apple_linker_inputs-linker_inputs"></a>linker_inputs |  Extra files to be passed to the linker action.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
+| <a id="apple_linker_inputs-linkopts"></a>linkopts |  Extra flags to be passed to Clang's linker command. Subject to ["Make" variable](https://docs.bazel.build/versions/master/be/make-variables.html) substitution and [label expansion](https://docs.bazel.build/versions/master/be/common-definitions.html#label-expansion).   | List of strings | optional | [] |
+
+
 <a id="#metal_library"></a>
 
 ## metal_library
@@ -237,7 +263,7 @@ mixed_static_framework(
 | <a id="mixed_static_framework-data"></a>data |  The list of files needed by this rule at runtime. These will be     bundled to the top level directory of the bundling target (<code>.app</code> or     <code>.framework</code>).   |  <code>[]</code> |
 | <a id="mixed_static_framework-umbrella_header"></a>umbrella_header |  An optional single <code>.h</code> file to use as the umbrella     header for this framework. Usually, this header will have the same name     as this target, so that clients can load the header using the #import     <code>&lt;MyFramework/MyFramework.h&gt;</code> format. If this attribute is not specified     (the common use case), an umbrella header will be generated under the     same name as this target.   |  <code>None</code> |
 | <a id="mixed_static_framework-visibility"></a>visibility |  The visibility specifications for this target.   |  <code>["//visibility:public"]</code> |
-| <a id="mixed_static_framework-minimum_os_version"></a>minimum_os_version |  <p align="center"> - </p>   |  <code>"11.0"</code> |
+| <a id="mixed_static_framework-minimum_os_version"></a>minimum_os_version |  Minimum os version.   |  <code>"11.0"</code> |
 | <a id="mixed_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
 
 
