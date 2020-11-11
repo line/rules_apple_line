@@ -34,8 +34,11 @@ apple_linker_inputs(
         "-Wl,-zld_original_ld_path,__BAZEL_XCODE_DEVELOPER_DIR__/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
         "-fuse-ld=zld",
         # Add the containing directory to clang's search paths for binaries
-        "-B$(BINDIR)/{}".format(build_file_dirname(
-            repository_name(), package_name()),
+        "-B$(BINDIR)/{}".format(
+            build_file_dirname(
+                repository_name(),
+                package_name(),
+            ),
         ),
     ],
 )
