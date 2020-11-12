@@ -83,5 +83,5 @@ def rules_apple_line_dependencies():
         remote = "https://github.com/ob/rules_ios.git",
         # TODO: Update hmap rule
         patch_args = ["-p1"],
-        patches = ["//third_party:rules_ios.patch"],
+        patches = ["@rules_apple_line//third_party:rules_ios.patch"],
     )
