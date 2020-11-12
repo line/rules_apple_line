@@ -31,11 +31,9 @@ def apple_resource_bundle(
     ```
     """
 
-    # Replace DEVELOPMENT_LANGUAGE with "en" and PRODUCT_BUNDLE_IDENTIFIER with
-    # a generated value so that it can be used with Bazel.
-
-    # For the simplicity of this patch, we only use a single Info.plist for
-    # each resource bundle target now.
+    # Replace PRODUCT_BUNDLE_IDENTIFIER with the provided bundle_id. For the
+    # simplicity of this patch, we only use a single Info.plist for each
+    # resource bundle target now.
     if len(infoplists) > 1:
         fail("There should be only a single Info.plist")
     infoplist = infoplists[0]
@@ -52,8 +50,7 @@ def apple_resource_bundle(
         outs = modified_infoplists,
         message = "Substitute variables in {}".format(infoplist),
         cmd = """
-plutil -replace CFBundleDevelopmentRegion -string en -o - $< | \
-plutil -replace CFBundleIdentifier -string {} -o $@ -
+plutil -replace CFBundleIdentifier -string {} -o $@ $<
 """.format(bundle_id),
     )
 
