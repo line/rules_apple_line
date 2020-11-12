@@ -73,9 +73,15 @@ Extra files to be passed to the linker action.
     doc = """
 Provides additional inputs to Apple rules' linker action.
 
-Unlike C++ rules like `cc_binary` and `cc_test`, Apple rules doesn't have any
+Unlike C++ rules like `cc_binary` and `cc_test`, Apple rules don't have any
 mechanism to allow providing additional inputs to the linker action. This
 little rule helps mitigate that.
+
+To use this rule in your BUILD files, load it with:
+
+```starlark
+load("@rules_apple_line//apple:apple_linker_inputs.bzl", "apple_linker_inputs")
+```
 """,
     implementation = _apple_linker_inputs_impl,
 )
