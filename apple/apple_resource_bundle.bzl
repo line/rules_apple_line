@@ -20,7 +20,6 @@ load(
 
 def apple_resource_bundle(
         name,
-        resources,
         infoplists,
         bundle_id = None,
         **kwargs):
@@ -58,19 +57,8 @@ plutil -replace CFBundleIdentifier -string {} -o $@ -
 """.format(bundle_id),
     )
 
-    _resources = []
-
-    for file in resources:
-        filename = paths.basename(file)
-
-        # Remove the BUILD file and .DS_Store file from resources if
-        # accidentally added
-        if filename != "BUILD" and filename != ".DS_Store":
-            _resources.append(file)
-
     _apple_resource_bundle(
         name = name,
-        resources = _resources,
         infoplists = modified_infoplists,
         **kwargs
     )
