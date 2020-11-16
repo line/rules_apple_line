@@ -12,7 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-common --strategy=Stardoc=standalone
+build --strategy=Stardoc=standalone
 
 build --incompatible_objc_compile_info_migration
 build --incompatible_strict_action_env
