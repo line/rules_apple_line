@@ -37,6 +37,15 @@ def _all_dsym_binaries(frameworks_groups):
 
     return binaries
 
+def _all_dsym_infoplists(frameworks_groups):
+    """Returns a list of Files of all imported dSYM Info.plists."""
+    return [
+        file
+        for files in frameworks_groups.values()
+        for file in files.to_list()
+        if file.basename.lower() == "info.plist"
+    ]
+
 def _all_framework_binaries(frameworks_groups):
     """Returns a list of Files of all imported binaries."""
     binaries = []
@@ -239,6 +248,26 @@ def _merge_dsym_imports_impl(ctx):
         xcode_config = ctx.attr._xcode_config[apple_common.XcodeVersionConfig],
     )
 
+    # Merge dSYM Info.plists
+    input_infoplists = _all_dsym_infoplists(framework_groups)
+    output_infoplist = ctx.actions.declare_file(
+        framework_dsym_dir + "/Contents/Info.plist",
+    )
+    outputs.append(output_infoplist)
+
+    plist_merger_args = ctx.actions.args()
+    plist_merger_args.add_all(input_infoplists, before_each = "--input")
+    plist_merger_args.add("--output", output_infoplist)
+    plist_merger_args.add("--output_format", "binary1")
+
+    ctx.actions.run(
+        executable = ctx.executable._plist_merger,
+        inputs = input_infoplists,
+        outputs = [output_infoplist],
+        arguments = [plist_merger_args],
+        mnemonic = "XcframeworkMergeDsymInfoPlists",
+    )
+
     return [
         DefaultInfo(
             files = depset(outputs),
@@ -324,6 +353,12 @@ _merge_dsym_imports = rule(
             allow_empty = False,
             allow_files = True,
         ),
+        "_plist_merger": attr.label(
+            default = "//tools/plist_merger",
+            cfg = "exec",
+            executable = True,
+            allow_files = True,
+        ),
         "_xcode_config": attr.label(default = configuration_field(
             fragment = "apple",
             name = "xcode_config_label",
@@ -349,6 +384,27 @@ _merge_framework_imports = rule(
 )
 
 def apple_xcframework_import(**kwargs):
+    """Encapsulates an already-built xcframework.
+
+    It is defined by a list of files in exactly one `.xcframework` directory.
+    `apple_xcframework_import` targets need to be added to library targets
+    through the `deps` attribute.
+
+    ### Examples
+
+    ```starlark
+    load("@rules_apple_line//apple:apple_xcframework_import.bzl", "apple_xcframework_import")
+
+    apple_xcframework_import(
+        name = "ThirdParty",
+        framework_type = "dynamic",
+        xcframework_imports = glob([
+            "ThirdParty.xcframework/**",
+        ]),
+    )
+    ```
+    """
+
     name = kwargs.pop("name")
     xcframework_imports = kwargs.pop("xcframework_imports")
 
