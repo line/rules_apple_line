@@ -16,18 +16,7 @@
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-def _maybe(repo_rule, name, **kwargs):
-    """Executes the given repository rule if it hasn't been executed already.
-
-    Args:
-      repo_rule: The repository rule to be executed (e.g.,
-          `http_archive`.)
-      name: The name of the repository to be defined by the rule.
-      **kwargs: Additional arguments passed directly to the repository rule.
-    """
-    if not native.existing_rule(name):
-        repo_rule(name = name, **kwargs)
+load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 def rules_apple_line_dependencies():
     """Fetches repositories that are dependencies of the `rules_apple_line` workspace.
@@ -36,7 +25,7 @@ def rules_apple_line_dependencies():
     dependencies of the Apple rules are downloaded and that they are isolated from
     changes to those dependencies.
     """
-    _maybe(
+    maybe(
         http_archive,
         name = "bazel_skylib",
         urls = [
@@ -45,7 +34,7 @@ def rules_apple_line_dependencies():
         sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
     )
 
-    _maybe(
+    maybe(
         http_archive,
         name = "rules_pkg",
         urls = [
@@ -55,28 +44,28 @@ def rules_apple_line_dependencies():
         sha256 = "6b5969a7acd7b60c02f816773b06fcf32fbe8ba0c7919ccdc2df4f8fb923804a",
     )
 
-    _maybe(
+    maybe(
         git_repository,
         name = "build_bazel_apple_support",
         remote = "https://github.com/bazelbuild/apple_support.git",
         commit = "f7f2b6d7c952f3cf6bdcedce6a0a2a40a27ff596",
     )
 
-    _maybe(
+    maybe(
         git_repository,
         name = "build_bazel_rules_apple",
         remote = "https://github.com/bazelbuild/rules_apple.git",
         commit = "67c622bbd9ad36115a706fffc0c100e05c9ee37f",
     )
 
-    _maybe(
+    maybe(
         git_repository,
         name = "build_bazel_rules_swift",
         remote = "https://github.com/bazelbuild/rules_swift.git",
         commit = "8141f747a1fc6bb4856d2671e8399ef5c7f5463f",
     )
 
-    _maybe(
+    maybe(
         git_repository,
         name = "com_github_ob_rules_ios",
         commit = "7c0759d784a3f66032038a51c1c144e528c5d7a8",
