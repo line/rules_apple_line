@@ -50,7 +50,7 @@ def apple_resource_bundle(
         outs = modified_infoplists,
         message = "Substitute variables in {}".format(infoplist),
         cmd = """
-plutil -replace CFBundleIdentifier -string {} -o $@ $<
+plutil -replace CFBundleIdentifier -string {} -o "$@" "$<"
 """.format(bundle_id),
     )
 
