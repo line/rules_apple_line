@@ -30,9 +30,6 @@ apple_linker_inputs(
     name = "zld_linkopts",
     linker_inputs = [":ld64_zld"],
     linkopts = [
-        # These will be passed to clang in reversed order
-        "-Wl,-zld_original_ld_path,__BAZEL_XCODE_DEVELOPER_DIR__/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
-        "-fuse-ld=zld",
         # Add the containing directory to clang's search paths for binaries
         "-B$(BINDIR)/{}".format(
             build_file_dirname(
@@ -40,6 +37,8 @@ apple_linker_inputs(
                 package_name(),
             ),
         ),
+        "-fuse-ld=zld",
+        "-Wl,-zld_original_ld_path,__BAZEL_XCODE_DEVELOPER_DIR__/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
     ],
 )
 

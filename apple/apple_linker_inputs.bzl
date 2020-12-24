@@ -26,7 +26,7 @@ def _apple_linker_inputs_impl(ctx):
         )
         linkopts.append(expanded_opt)
 
-    linkopts_depset = depset(linkopts)
+    linkopts_depset = depset(direct = linkopts, order = "topological")
     linker_inputs_depset = depset(ctx.files.linker_inputs)
 
     objc_provider = apple_common.new_objc_provider(
