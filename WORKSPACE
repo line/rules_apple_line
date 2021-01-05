@@ -84,6 +84,6 @@ http_archive(
 http_archive(
     name = "zld",
     build_file = "//third_party:zld.BUILD",
-    sha256 = "0b48ad64ddf8fcbc75b872dcf3b0ed427c9c9eeb843ce68383ce22fa8197b7f9",
-    url = "https://github.com/thii/zld/releases/download/1.2.1/zld.tar.xz",
+    sha256 = "96fc20e552795a06edccf53445f88fb448687509c51348fa6c27cce823c23f5e",
+    url = "https://github.com/michaeleisel/zld/releases/download/1.2.1/zld.zip",
 )
