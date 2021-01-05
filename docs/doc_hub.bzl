@@ -23,6 +23,7 @@ load("//apple:objc_static_framework.bzl", _objc_static_framework = "objc_static_
 load("//apple:pkg_dsym.bzl", _pkg_dsym = "pkg_dsym")
 load("//apple:swift_library.bzl", _swift_library = "swift_library")
 load("//apple:swift_static_framework.bzl", _swift_static_framework = "swift_static_framework")
+load("//apple:swiftgen.bzl", _swiftgen = "swiftgen")
 
 # No need for any implementation here. The rules need only be loaded for the
 # documentation generation purpose.
@@ -40,3 +41,4 @@ objc_static_framework = _objc_static_framework
 pkg_dsym = _pkg_dsym
 swift_library = _swift_library
 swift_static_framework = _swift_static_framework
+swiftgen = _swiftgen

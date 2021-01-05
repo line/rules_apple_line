@@ -104,6 +104,28 @@ Creates a `.dSYM.zip` file given targets that produce dSYMs.
 | <a id="pkg_dsym-timestamp"></a>timestamp |  The time to use for every file in the zip, expressed as seconds since Unix Epoch, RFC 3339.<br><br>Due to limitations in the format of zip files, values before Jan 1, 1980 will be rounded up and the precision in the zip file is limited to a granularity of 2 seconds.   | Integer | optional | 315532800 |
 
 
+<a id="#swiftgen"></a>
+
+## swiftgen
+
+<pre>
+swiftgen(<a href="#swiftgen-name">name</a>, <a href="#swiftgen-out">out</a>, <a href="#swiftgen-srcs">srcs</a>, <a href="#swiftgen-template_file">template_file</a>, <a href="#swiftgen-template_params">template_params</a>)
+</pre>
+
+Generates Swift code from the given resource files.
+
+**ATTRIBUTES**
+
+
+| Name  | Description | Type | Mandatory | Default |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| <a id="swiftgen-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
+| <a id="swiftgen-out"></a>out |  The output Swift filename.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="swiftgen-srcs"></a>srcs |  The list of input resource files.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |  |
+| <a id="swiftgen-template_file"></a>template_file |  The template file which will be used to generate Swift code.   | <a href="https://bazel.build/docs/build-ref.html#labels">Label</a> | required |  |
+| <a id="swiftgen-template_params"></a>template_params |  An optional dictionary of parameters that you want to pass to the template.   | <a href="https://bazel.build/docs/skylark/lib/dict.html">Dictionary: String -> String</a> | optional | {} |
+
+
 <a id="#apple_library"></a>
 
 ## apple_library
