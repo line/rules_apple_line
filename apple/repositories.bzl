@@ -74,3 +74,67 @@ def rules_apple_line_dependencies():
         patch_args = ["-p1"],
         patches = ["@rules_apple_line//third_party:rules_ios.patch"],
     )
+
+    maybe(
+        http_archive,
+        name = "Commander",
+        build_file = "//third_party:Commander.BUILD",
+        sha256 = "4243b0227e51b8ea60345eac3ec4a3ff4385435e86011f2b60273e16806af9a8",
+        strip_prefix = "Commander-0.9.1",
+        url = "https://github.com/kylef/Commander/archive/0.9.1.tar.gz",
+    )
+
+    # SwiftGen dependencies
+    maybe(
+        http_archive,
+        name = "Kanna",
+        build_file = "//third_party:Kanna.BUILD",
+        sha256 = "9aad278e9ec7069a4c06d638c8b21580587e93a67e93f488dabf0a51cd275265",
+        strip_prefix = "Kanna-5.2.3",
+        url = "https://github.com/tid-kijyun/Kanna/archive/5.2.3.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "PathKit",
+        build_file = "//third_party:PathKit.BUILD",
+        sha256 = "6d45fb8153b047d21568b607ba7da851a52f59817f35441a4656490b37680c64",
+        strip_prefix = "PathKit-1.0.0",
+        url = "https://github.com/kylef/PathKit/archive/1.0.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "Stencil",
+        build_file = "//third_party:Stencil.BUILD",
+        sha256 = "1f20c356f9dd454517e1362df7ec5355aee9fa3c59b8d48cadc62019f905d8ec",
+        strip_prefix = "Stencil-0.14.0",
+        url = "https://github.com/stencilproject/Stencil/archive/0.14.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "StencilSwiftKit",
+        build_file = "//third_party:StencilSwiftKit.BUILD",
+        sha256 = "225f5c03051805d6bdb8f25f980bed83b03bb3c840278e9d7171d016c8b33fbd",
+        strip_prefix = "StencilSwiftKit-fad4415a4c904a9845134b02fd66bd8464741427",
+        url = "https://github.com/SwiftGen/StencilSwiftKit/archive/fad4415a4c904a9845134b02fd66bd8464741427.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "SwiftGen",
+        build_file = "//third_party:SwiftGen.BUILD",
+        sha256 = "fa9377ebea5c0bea55d67671eb2f20491a49f3a3d90b086d75743bffc99507f0",
+        strip_prefix = "SwiftGen-6.4.0",
+        url = "https://github.com/SwiftGen/SwiftGen/archive/6.4.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "Yams",
+        build_file = "//third_party:Yams.BUILD",
+        sha256 = "1653e729419565b9a34b327e3a70f514254c9d73c46c18be2599cd271105079f",
+        strip_prefix = "Yams-4.0.0",
+        url = "https://github.com/jpsim/Yams/archive/4.0.0.tar.gz",
+    )
