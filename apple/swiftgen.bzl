@@ -8,7 +8,7 @@ def _swiftgen_impl(ctx):
 
     inputs = []
     inputs.extend(srcs)
-    inputs.append(ctx.file.template)
+    inputs.append(ctx.file.template_file)
     output = ctx.outputs.out
 
     # Figure out the source type from the input files
@@ -25,7 +25,7 @@ def _swiftgen_impl(ctx):
     args.add("run")
     args.add(src_type)
     args.add("--output", output)
-    args.add("--templatePath", ctx.file.template)
+    args.add("--templatePath", ctx.file.template_file)
 
     for (key, value) in ctx.attr.template_params.items():
         args.add_joined(
