@@ -44,7 +44,8 @@ apple_linker_inputs(
 
 # A dummy target that propagates extra linker flags for zld. Add this to your
 # application/extension targets' `deps` to tell Bazel to use zld to link your
-# executables.
+# executables. This has to be an `objc_library` because only ObjcProvider can
+# currently propagate linker inputs to Apple rules.
 objc_library(
     name = "zld_linkopts_lib",
     visibility = ["//visibility:public"],
