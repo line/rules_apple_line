@@ -12,13 +12,16 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_12.3.app
-      - name: Buildifier
-        run: make buildifier
-      - name: Check docs
-        run: make docs
+      - run: sudo xcode-select -s /Applications/Xcode_12.3.app
       - name: Build
         run: bazelisk build --subcommands //examples/ios/PureSwift:PureSwiftFramework //examples/ios/PureObjC:PureObjCFramework //examples/ios/Mixed:MixedFramework //examples/ios/App
       - name: Package dSYM
         run: bazelisk build --subcommands --apple_generate_dsym --output_groups=+dsyms //examples/ios/App:App_dSYM
+  buildifier:
+    name: Run Buildifier and Verify Documentation Generation
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo xcode-select -s /Applications/Xcode_12.3.app
+      - run: make buildifier
+      - run: make docs
