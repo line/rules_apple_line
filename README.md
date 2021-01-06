@@ -11,6 +11,11 @@ general, notably: supports for header maps, Clang modules and mixed language
 targets. This repository implements those features and exposes them as drop-in
 replacements for the official Apple rules.
 
+These are open references of what are used to build the LINE iOS app. They may
+not work with curtain revisions of `rules_apple` or `rules_swift` due to
+their breaking changes. If they don't work out-of-the-box for you, use them as
+references for your custom rule's implementation.
+
 ## Build Definitions
 
 ### Library Rules
