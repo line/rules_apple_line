@@ -40,14 +40,5 @@ apple_linker_inputs(
         "-fuse-ld=zld",
         "-Wl,-zld_original_ld_path,__BAZEL_XCODE_DEVELOPER_DIR__/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
     ],
-)
-
-# A dummy target that propagates extra linker flags for zld. Add this to your
-# application/extension targets' `deps` to tell Bazel to use zld to link your
-# executables. This has to be an `objc_library` because only ObjcProvider can
-# currently propagate linker inputs to Apple rules.
-objc_library(
-    name = "zld_linkopts_lib",
     visibility = ["//visibility:public"],
-    deps = [":zld_linkopts"],
 )

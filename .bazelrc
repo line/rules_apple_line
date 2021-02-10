@@ -19,4 +19,4 @@ build --incompatible_strict_action_env
 
 # Disable the Swift compilation worker
 build --define=RULES_SWIFT_BUILD_DUMMY_WORKER=1
-build --strategy=SwiftCompile=local
+build --strategy=SwiftCompile=sandboxed
