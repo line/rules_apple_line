@@ -59,29 +59,6 @@ load("@rules_apple_line//apple:metal_library.bzl", "metal_library")
 | <a id="metal_library-srcs"></a>srcs |  A list of <code>.metal</code> source files that will be compiled into the library.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |  |
 
 
-<a id="#module_map"></a>
-
-## module_map
-
-<pre>
-module_map(<a href="#module_map-name">name</a>, <a href="#module_map-add_to_provider">add_to_provider</a>, <a href="#module_map-deps">deps</a>, <a href="#module_map-hdrs">hdrs</a>, <a href="#module_map-module_name">module_name</a>, <a href="#module_map-textual_hdrs">textual_hdrs</a>)
-</pre>
-
-Generates a module map given a list of header files.
-
-**ATTRIBUTES**
-
-
-| Name  | Description | Type | Mandatory | Default |
-| :------------- | :------------- | :------------- | :------------- | :------------- |
-| <a id="module_map-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
-| <a id="module_map-add_to_provider"></a>add_to_provider |  Whether to add the generated module map to the returning provider. Targets imported via <code>apple_static_framework_import</code> or <code>apple_dynamic_framework_import</code> already have their module maps provided to swift_library targets depending on them. Set this to <code>False</code> in that case to avoid duplicate modules.   | Boolean | optional | True |
-| <a id="module_map-deps"></a>deps |  The list of swift_library targets.  A <code>${module_name}.Swift</code> submodule will be generated if non-empty.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="module_map-hdrs"></a>hdrs |  The list of C, C++, Objective-C, and Objective-C++ header files used to construct the module map.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-| <a id="module_map-module_name"></a>module_name |  The name of the module.   | String | required |  |
-| <a id="module_map-textual_hdrs"></a>textual_hdrs |  The list of C, C++, Objective-C, and Objective-C++ header files used to construct the module map. Unlike hdrs, these will be declared as 'textual header' in the module map.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | [] |
-
-
 <a id="#pkg_dsym"></a>
 
 ## pkg_dsym
@@ -181,9 +158,9 @@ apple_preprocessed_plist(<a href="#apple_preprocessed_plist-name">name</a>, <a h
 
 <pre>
 mixed_static_framework(<a href="#mixed_static_framework-name">name</a>, <a href="#mixed_static_framework-srcs">srcs</a>, <a href="#mixed_static_framework-non_arc_srcs">non_arc_srcs</a>, <a href="#mixed_static_framework-hdrs">hdrs</a>, <a href="#mixed_static_framework-textual_hdrs">textual_hdrs</a>, <a href="#mixed_static_framework-enable_modules">enable_modules</a>, <a href="#mixed_static_framework-includes">includes</a>,
-                       <a href="#mixed_static_framework-copts">copts</a>, <a href="#mixed_static_framework-objc_copts">objc_copts</a>, <a href="#mixed_static_framework-swift_copts">swift_copts</a>, <a href="#mixed_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#mixed_static_framework-objc_deps">objc_deps</a>, <a href="#mixed_static_framework-swift_deps">swift_deps</a>,
-                       <a href="#mixed_static_framework-avoid_deps">avoid_deps</a>, <a href="#mixed_static_framework-deps">deps</a>, <a href="#mixed_static_framework-data">data</a>, <a href="#mixed_static_framework-umbrella_header">umbrella_header</a>, <a href="#mixed_static_framework-visibility">visibility</a>, <a href="#mixed_static_framework-minimum_os_version">minimum_os_version</a>,
-                       <a href="#mixed_static_framework-kwargs">kwargs</a>)
+                       <a href="#mixed_static_framework-copts">copts</a>, <a href="#mixed_static_framework-objc_copts">objc_copts</a>, <a href="#mixed_static_framework-swift_copts">swift_copts</a>, <a href="#mixed_static_framework-use_defines">use_defines</a>, <a href="#mixed_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#mixed_static_framework-objc_deps">objc_deps</a>,
+                       <a href="#mixed_static_framework-swift_deps">swift_deps</a>, <a href="#mixed_static_framework-avoid_deps">avoid_deps</a>, <a href="#mixed_static_framework-deps">deps</a>, <a href="#mixed_static_framework-data">data</a>, <a href="#mixed_static_framework-umbrella_header">umbrella_header</a>, <a href="#mixed_static_framework-visibility">visibility</a>,
+                       <a href="#mixed_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#mixed_static_framework-kwargs">kwargs</a>)
 </pre>
 
 Builds and bundles a static framework for Xcode consumption or third-party distribution.
@@ -260,6 +237,7 @@ mixed_static_framework(
 | <a id="mixed_static_framework-copts"></a>copts |  Additional compiler options that should be passed to <code>clang</code> and     <code>swiftc</code>.   |  <code>[]</code> |
 | <a id="mixed_static_framework-objc_copts"></a>objc_copts |  Additional compiler options that should be passed to <code>clang</code>.   |  <code>[]</code> |
 | <a id="mixed_static_framework-swift_copts"></a>swift_copts |  Additional compiler options that should be passed to <code>swiftc</code>.   |  <code>[]</code> |
+| <a id="mixed_static_framework-use_defines"></a>use_defines |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="mixed_static_framework-swiftc_inputs"></a>swiftc_inputs |  Additional files that are referenced using <code>$(rootpath     ...)</code> and <code>$(execpath ...)</code> in attributes that support location     expansion (e.g. <code>copts</code>).   |  <code>[]</code> |
 | <a id="mixed_static_framework-objc_deps"></a>objc_deps |  Dependencies of the underlying <code>objc_library</code> target.   |  <code>[]</code> |
 | <a id="mixed_static_framework-swift_deps"></a>swift_deps |  Dependencies of the underlying <code>swift_library</code> target.   |  <code>[]</code> |
@@ -270,6 +248,25 @@ mixed_static_framework(
 | <a id="mixed_static_framework-visibility"></a>visibility |  The visibility specifications for this target.   |  <code>["//visibility:public"]</code> |
 | <a id="mixed_static_framework-minimum_os_version"></a>minimum_os_version |  Minimum os version.   |  <code>"11.0"</code> |
 | <a id="mixed_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
+
+
+<a id="#module_map"></a>
+
+## module_map
+
+<pre>
+module_map(<a href="#module_map-name">name</a>, <a href="#module_map-kwargs">kwargs</a>)
+</pre>
+
+
+
+**PARAMETERS**
+
+
+| Name  | Description | Default Value |
+| :------------- | :------------- | :------------- |
+| <a id="module_map-name"></a>name |  <p align="center"> - </p>   |  none |
+| <a id="module_map-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
 
 
 <a id="#objc_library"></a>
@@ -308,9 +305,9 @@ of each attribute.
 ## objc_static_framework
 
 <pre>
-objc_static_framework(<a href="#objc_static_framework-name">name</a>, <a href="#objc_static_framework-srcs">srcs</a>, <a href="#objc_static_framework-non_arc_srcs">non_arc_srcs</a>, <a href="#objc_static_framework-hdrs">hdrs</a>, <a href="#objc_static_framework-archives">archives</a>, <a href="#objc_static_framework-deps">deps</a>, <a href="#objc_static_framework-avoid_deps">avoid_deps</a>, <a href="#objc_static_framework-data">data</a>, <a href="#objc_static_framework-module_name">module_name</a>,
-                      <a href="#objc_static_framework-textual_hdrs">textual_hdrs</a>, <a href="#objc_static_framework-includes">includes</a>, <a href="#objc_static_framework-testonly">testonly</a>, <a href="#objc_static_framework-enable_modules">enable_modules</a>, <a href="#objc_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#objc_static_framework-pch">pch</a>,
-                      <a href="#objc_static_framework-visibility">visibility</a>, <a href="#objc_static_framework-umbrella_header">umbrella_header</a>, <a href="#objc_static_framework-kwargs">kwargs</a>)
+objc_static_framework(<a href="#objc_static_framework-name">name</a>, <a href="#objc_static_framework-srcs">srcs</a>, <a href="#objc_static_framework-non_arc_srcs">non_arc_srcs</a>, <a href="#objc_static_framework-hdrs">hdrs</a>, <a href="#objc_static_framework-archives">archives</a>, <a href="#objc_static_framework-deps">deps</a>, <a href="#objc_static_framework-avoid_deps">avoid_deps</a>, <a href="#objc_static_framework-data">data</a>, <a href="#objc_static_framework-use_defines">use_defines</a>,
+                      <a href="#objc_static_framework-module_name">module_name</a>, <a href="#objc_static_framework-textual_hdrs">textual_hdrs</a>, <a href="#objc_static_framework-includes">includes</a>, <a href="#objc_static_framework-testonly">testonly</a>, <a href="#objc_static_framework-enable_modules">enable_modules</a>,
+                      <a href="#objc_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#objc_static_framework-pch">pch</a>, <a href="#objc_static_framework-visibility">visibility</a>, <a href="#objc_static_framework-umbrella_header">umbrella_header</a>, <a href="#objc_static_framework-kwargs">kwargs</a>)
 </pre>
 
 Builds and bundles a Objective-C static framework for Xcode consumption or third-party distribution.
@@ -337,6 +334,7 @@ it builds frameworks.
 | <a id="objc_static_framework-deps"></a>deps |  Dependencies of the <code>objc_library</code> target being compiled.   |  <code>[]</code> |
 | <a id="objc_static_framework-avoid_deps"></a>avoid_deps |  A list of <code>objc_library</code> and <code>swift_library</code> targets on which     this framework depends in order to compile, but you don't want to link to     the framework binary. Defaults to <code>deps</code> if not specified.   |  <code>None</code> |
 | <a id="objc_static_framework-data"></a>data |  The list of files needed by this rule at runtime. These will be     bundled to the top level directory of the bundling target (<code>.app</code> or     <code>.framework</code>).   |  <code>[]</code> |
+| <a id="objc_static_framework-use_defines"></a>use_defines |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="objc_static_framework-module_name"></a>module_name |  The name of the module being built. If not     provided, the <code>name</code> is used.   |  <code>None</code> |
 | <a id="objc_static_framework-textual_hdrs"></a>textual_hdrs |  The list of C, C++, Objective-C, and Objective-C++ files     that are included as headers by source files in this rule or by users     of this library. Unlike <code>hdrs</code>, these will not be compiled separately     from the sources.   |  <code>[]</code> |
 | <a id="objc_static_framework-includes"></a>includes |  List of header search paths to add to this target and all     depending targets. Unlike <code>copts</code>, these flags are added for this     rule and every rule that depends on it. (Note: not the rules it     depends upon!) Be very careful, since this may have far-reaching     effects. When in doubt, add "-iquote" flags to <code>copts</code> instead.   |  <code>[]</code> |
@@ -386,8 +384,8 @@ of each attribute.
 ## swift_static_framework
 
 <pre>
-swift_static_framework(<a href="#swift_static_framework-name">name</a>, <a href="#swift_static_framework-srcs">srcs</a>, <a href="#swift_static_framework-copts">copts</a>, <a href="#swift_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#swift_static_framework-deps">deps</a>, <a href="#swift_static_framework-avoid_deps">avoid_deps</a>, <a href="#swift_static_framework-data">data</a>, <a href="#swift_static_framework-visibility">visibility</a>,
-                       <a href="#swift_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#swift_static_framework-kwargs">kwargs</a>)
+swift_static_framework(<a href="#swift_static_framework-name">name</a>, <a href="#swift_static_framework-srcs">srcs</a>, <a href="#swift_static_framework-copts">copts</a>, <a href="#swift_static_framework-use_defines">use_defines</a>, <a href="#swift_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#swift_static_framework-deps">deps</a>, <a href="#swift_static_framework-avoid_deps">avoid_deps</a>, <a href="#swift_static_framework-data">data</a>,
+                       <a href="#swift_static_framework-visibility">visibility</a>, <a href="#swift_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#swift_static_framework-kwargs">kwargs</a>)
 </pre>
 
 Builds and bundles a Swift static framework for Xcode consumption or third-party distribution.
@@ -431,6 +429,7 @@ swift_static_framework(
 | <a id="swift_static_framework-name"></a>name |  A unique name for this target. This will be the name of the     library target that the framework depends on. The framework target     will be named <code>${name}Framework</code>.   |  none |
 | <a id="swift_static_framework-srcs"></a>srcs |  The list of Swift source files to compile.   |  none |
 | <a id="swift_static_framework-copts"></a>copts |  Additional compiler options that should be passed to <code>swiftc</code>.   |  <code>[]</code> |
+| <a id="swift_static_framework-use_defines"></a>use_defines |  <p align="center"> - </p>   |  <code>None</code> |
 | <a id="swift_static_framework-swiftc_inputs"></a>swiftc_inputs |  Additional files that are referenced using <code>$(rootpath     ...)</code> and <code>$(execpath ...)</code> in attributes that support location     expansion (e.g. <code>copts</code>).   |  <code>[]</code> |
 | <a id="swift_static_framework-deps"></a>deps |  A list of targets that are dependencies of the target being built.     Note that, by default, none of these and all of their transitive     dependencies will be linked into the final binary when building the     <code>${name}Framework</code> target.   |  <code>[]</code> |
 | <a id="swift_static_framework-avoid_deps"></a>avoid_deps |  A list of <code>objc_library</code> and <code>swift_library</code> targets on which     this framework depends in order to compile, but the transitive     closure of which will not be linked into the framework's binary. By     default this is the same as <code>deps</code>, that is none of the     depependencies will be linked into the framework's binary. For     example, providing an empty list (<code>[]</code>) here will result in a fully     static link binary.   |  <code>None</code> |

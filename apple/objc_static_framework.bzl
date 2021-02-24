@@ -16,6 +16,7 @@
 
 load("@build_bazel_rules_apple//apple:ios.bzl", "ios_static_framework")
 load("@bazel_skylib//lib:paths.bzl", "paths")
+load(":defines.bzl", "OBJC_DEFINES")
 load(":headermap_support.bzl", "headermap_support")
 load(":module_map.bzl", "module_map")
 load(":objc_module_map_config.bzl", "objc_module_map_config")
@@ -25,6 +26,7 @@ load(
     "DEFAULT_MINIMUM_OS_VERSION",
     "DEFAULT_VISIBILITY",
     "HEADERS_FILE_TYPES",
+    "SHARED_COMPILER_OPTIONS",
     "SHARED_OBJC_COMPILER_OPTIONS",
 )
 
@@ -37,6 +39,7 @@ def objc_static_framework(
         deps = [],
         avoid_deps = None,
         data = [],
+        use_defines = None,
         module_name = None,
         textual_hdrs = [],
         includes = [],
@@ -130,20 +133,21 @@ def objc_static_framework(
 
     module_map_name = name + "Module"
     module_map(
-        name = name + "Module",
+        name = module_map_name,
         hdrs = hdrs,
         module_name = module_name,
         visibility = visibility,
     )
 
-    copts = SHARED_OBJC_COMPILER_OPTIONS + kwargs.get("copts", [])
+    if use_defines == None:
+        use_defines = native.repository_name() == "@"
 
-    # Prior to 2.0.0, Bazel implicitly includes root path (i.e. `bazel-line-ios`)
-    # in the C family compilation command, but not anymore since 2.0.0 it seemed.
-    copts += [
-        "-iquote",
-        ".",
-    ]
+    if use_defines:
+        defines = OBJC_DEFINES
+    else:
+        defines = []
+
+    copts = SHARED_COMPILER_OPTIONS + defines + SHARED_OBJC_COMPILER_OPTIONS + kwargs.get("copts", [])
 
     # Modules is not enabled if a custom module map is present even with
     # `enable_modules` set to `True`. This forcibly enables it.

@@ -22,13 +22,14 @@ load(
 )
 load(
     "@build_bazel_rules_apple//apple:ios.bzl",
-    _ios_static_framework = "ios_static_framework",
+    "ios_static_framework",
 )
 load(
     "@build_bazel_rules_apple//apple:providers.bzl",
     "AppleBundleInfo",
 )
 load("@bazel_skylib//lib:paths.bzl", "paths")
+load(":defines.bzl", "OBJC_DEFINES", "SWIFT_DEFINES")
 load(":headermap_support.bzl", "headermap_support")
 load(":module_map.bzl", "module_map")
 load(":objc_module_map_config.bzl", "objc_module_map_config")
@@ -38,10 +39,12 @@ load(
     "DEFAULT_VISIBILITY",
     "HEADERS_FILE_TYPES",
     "OBJC_FILE_TYPES",
+    "SHARED_COMPILER_OPTIONS",
     "SHARED_OBJC_COMPILER_OPTIONS",
     "SHARED_SWIFT_COMPILER_OPTIONS",
     "SWIFT_FILE_TYPES",
 )
+load(":zipper_support.bzl", "swiftmodule_zipper_arg_format")
 
 _PLATFORM_TO_SWIFTMODULE = {
     "ios_armv7": "arm",
@@ -50,20 +53,11 @@ _PLATFORM_TO_SWIFTMODULE = {
     "ios_x86_64": "x86_64",
 }
 
-def _module_zipper_arg(framework, module_name, cpu, file):
-    return "{framework}/Modules/{module_name}.swiftmodule/{cpu}.{ext}={file_path}".format(
-        framework = framework,
-        module_name = module_name,
-        cpu = cpu,
-        ext = file.extension,
-        file_path = file.path,
-    )
-
 def _objc_headers_impl(ctx):
     # Get all the Obj-C headers
     headers = []
     for dep in ctx.attr.deps:
-        objc_headers = dep[apple_common.Objc].header.to_list()
+        objc_headers = dep[CcInfo].compilation_context.headers.to_list()
         for hdr in objc_headers:
             if hdr.owner == dep.label:
                 headers.append(hdr)
@@ -89,7 +83,7 @@ def _mixed_static_framework_impl(ctx):
     inputs = [
         ctx.file.framework,
     ]
-    zipper_args = []
+    zipper_args = ctx.actions.args()
 
     # Get the `swiftdoc` and `swiftmodule` files for each architecture.
     for arch, target in ctx.split_attr.swift_partial_target.items():
@@ -97,33 +91,49 @@ def _mixed_static_framework_impl(ctx):
         if not cpu:
             continue
 
-        swift_info = target[SwiftInfo]
-        swiftdoc = swift_info.direct_swiftdocs[0]
-        swiftmodule = swift_info.direct_swiftmodules[0]
+        direct_module = target[SwiftInfo].direct_modules[0]
+        swiftdoc = direct_module.swift.swiftdoc
+        swiftmodule = direct_module.swift.swiftmodule
         inputs.extend([swiftmodule, swiftdoc])
-        zipper_args.extend([
-            _module_zipper_arg(framework_name, swift_info.module_name, cpu, swiftmodule),
-            _module_zipper_arg(framework_name, swift_info.module_name, cpu, swiftdoc),
-        ])
+        module_name = direct_module.name
 
-    command = """
-        {zipper} x {framework}
-        {zipper} c {new_framework} $(find {framework_name} -type f) $@
-        rm -rf {framework}
-    """.format(
-        framework = ctx.file.framework.path,
-        framework_name = framework_name,
-        new_framework = new_framework.path,
-        zipper = ctx.executable._zipper.path,
-    )
+        # There is a bit of hardcoding here, but this would avoid the file
+        # from needing to be evaluated at analysis phase.
+        zipper_args.add(
+            swiftdoc,
+            format = swiftmodule_zipper_arg_format(
+                framework = framework_name,
+                module_name = module_name,
+                cpu = cpu,
+                extension = "swiftdoc",
+            ),
+        )
+        zipper_args.add(
+            swiftmodule,
+            format = swiftmodule_zipper_arg_format(
+                framework = framework_name,
+                module_name = module_name,
+                cpu = cpu,
+                extension = "swiftmodule",
+            ),
+        )
 
     ctx.actions.run_shell(
         inputs = inputs,
         outputs = [new_framework],
-        mnemonic = "BundleStaticFramework",
-        progress_message = "Processing and bundling {}".format(framework_name),
-        command = command,
-        arguments = zipper_args,
+        mnemonic = "SwiftFrameworkPostProcess",
+        progress_message = "Postprocessing %s for Swift support" % framework_name,
+        command = """
+            {zipper} x {framework}
+            {zipper} c {new_framework} $(find {framework_name} -type f) $@
+            rm -rf {framework}
+        """.format(
+            framework = ctx.file.framework.path,
+            framework_name = framework_name,
+            new_framework = new_framework.path,
+            zipper = ctx.executable._zipper.path,
+        ),
+        arguments = [zipper_args],
         tools = [
             ctx.executable._zipper,
         ],
@@ -155,7 +165,7 @@ _mixed_static_framework = rule(
         ),
         _zipper = attr.label(
             default = "@bazel_tools//tools/zip:zipper",
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
     ),
@@ -176,6 +186,7 @@ def mixed_static_framework(
         copts = [],
         objc_copts = [],
         swift_copts = [],
+        use_defines = None,
         swiftc_inputs = [],
         objc_deps = [],
         swift_deps = [],
@@ -343,7 +354,17 @@ def mixed_static_framework(
 
     headermap_copts = headermaps["headermap_copts"]
 
-    swift_copts = SHARED_SWIFT_COMPILER_OPTIONS + swift_copts + [
+    if use_defines == None:
+        use_defines = native.repository_name() == "@"
+
+    if use_defines:
+        swift_defines = SWIFT_DEFINES
+        objc_defines = OBJC_DEFINES
+    else:
+        swift_defines = []
+        objc_defines = []
+
+    swift_copts = SHARED_COMPILER_OPTIONS + swift_defines + SHARED_SWIFT_COMPILER_OPTIONS + swift_copts + [
         "-Xfrontend",
         "-enable-objc-interop",
         "-import-underlying-module",
@@ -374,7 +395,7 @@ def mixed_static_framework(
     )
 
     objc_module_map = ":" + name + "_objc_module"
-    swiftc_inputs = swiftc_inputs + hdrs + textual_hdrs + private_hdrs + [objc_module_map]
+    swiftc_inputs = swiftc_inputs + hdrs + textual_hdrs + private_hdrs + [objc_module_map] + headermap_deps
 
     swift_copts += [
         "-Xcc",
@@ -395,7 +416,7 @@ def mixed_static_framework(
         generated_header_name = module_name + "-Swift.h",
     )
 
-    objc_copts = SHARED_OBJC_COMPILER_OPTIONS + objc_copts + headermap_copts
+    objc_copts = SHARED_COMPILER_OPTIONS + objc_defines + SHARED_OBJC_COMPILER_OPTIONS + objc_copts + headermap_copts
 
     # Modules is not enabled if a custom module map is present even with
     # `enable_modules` set to `True`. This forcibly enables it.
@@ -427,6 +448,7 @@ def mixed_static_framework(
             "--config",
             "$(execpath {})".format(":" + objc_module_map_config_name),
         ]
+
     native.objc_library(
         name = objc_library_name,
         module_map = umbrella_module_map,
@@ -460,7 +482,7 @@ def mixed_static_framework(
     if avoid_deps == None:
         avoid_deps = deps
 
-    _ios_static_framework(
+    ios_static_framework(
         name = name + ".intermediate",
         hdrs = hdrs + textual_hdrs + [
             ":" + name + ".hdrs",
@@ -479,4 +501,5 @@ def mixed_static_framework(
         framework = name + ".intermediate",
         swift_partial_target = ":" + swift_library_name,
         minimum_os_version = minimum_os_version,
+        visibility = visibility,
     )

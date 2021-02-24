@@ -75,7 +75,10 @@ def _impl(ctx):
     # Find Swift generated header
     swift_generated_header = None
     for dep in ctx.attr.deps:
-        objc_headers = dep[apple_common.Objc].header.to_list()
+        if CcInfo in dep:
+            objc_headers = dep[CcInfo].compilation_context.headers.to_list()
+        else:
+            objc_headers = []
         for hdr in objc_headers:
             if hdr.owner == dep.label:
                 swift_generated_header = hdr
@@ -92,7 +95,7 @@ def _impl(ctx):
         )
         outputs.append(umbrella_header)
 
-    module_map = ctx.outputs.module_map
+    module_map = ctx.outputs.out
     outputs.append(module_map)
 
     ctx.actions.write(
@@ -108,17 +111,31 @@ def _impl(ctx):
 
     module_map_to_provide = []
     if ctx.attr.add_to_provider:
-        module_map_to_provide = [ctx.outputs.module_map]
+        module_map_to_provide = [module_map]
+
+    objc_provider = apple_common.new_objc_provider(
+        module_map = depset(module_map_to_provide),
+        header = depset(outputs),
+    )
+
+    compilation_context = cc_common.create_compilation_context(
+        headers = depset(outputs),
+    )
+    cc_info = CcInfo(
+        compilation_context = compilation_context,
+    )
+
     return struct(
         providers = [
-            apple_common.new_objc_provider(
-                module_map = depset(module_map_to_provide),
-                header = depset(outputs),
+            DefaultInfo(
+                files = depset([module_map]),
             ),
+            objc_provider,
+            cc_info,
         ],
     )
 
-module_map = rule(
+_module_map = rule(
     implementation = _impl,
     attrs = {
         "module_name": attr.string(
@@ -157,9 +174,23 @@ swift_library targets depending on them. Set this to `False` in that case to
 avoid duplicate modules.
 """,
         ),
+        "out": attr.output(
+            doc = "The name of the output module map file.",
+        ),
+        "_realpath": attr.label(
+            cfg = "exec",
+            allow_single_file = True,
+            default = Label("@bazel_tools//tools/objc:realpath"),
+        ),
     },
     doc = "Generates a module map given a list of header files.",
-    outputs = {
-        "module_map": "%{name}-module.modulemap",
-    },
 )
+
+# TODO: Revisit. Stardoc generation of this. Stardoc will look at this macro
+# instead of the rule above, so it is generating empty documentation for this.
+def module_map(name, **kwargs):
+    _module_map(
+        name = name,
+        out = name + "-module.modulemap",
+        **kwargs
+    )
