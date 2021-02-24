@@ -250,25 +250,6 @@ mixed_static_framework(
 | <a id="mixed_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
 
 
-<a id="#module_map"></a>
-
-## module_map
-
-<pre>
-module_map(<a href="#module_map-name">name</a>, <a href="#module_map-kwargs">kwargs</a>)
-</pre>
-
-
-
-**PARAMETERS**
-
-
-| Name  | Description | Default Value |
-| :------------- | :------------- | :------------- |
-| <a id="module_map-name"></a>name |  <p align="center"> - </p>   |  none |
-| <a id="module_map-kwargs"></a>kwargs |  <p align="center"> - </p>   |  none |
-
-
 <a id="#objc_library"></a>
 
 ## objc_library
