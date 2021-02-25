@@ -12,7 +12,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo xcode-select -s /Applications/Xcode_12.3.app
+      - run: sudo xcode-select -s /Applications/Xcode_12.4.app
       - name: Build
         run: bazelisk build --subcommands //examples/ios/PureSwift:PureSwiftFramework //examples/ios/PureObjC:PureObjCFramework //examples/ios/Mixed:MixedFramework //examples/ios/App
       - name: Package dSYM
@@ -22,6 +22,6 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo xcode-select -s /Applications/Xcode_12.3.app
+      - run: sudo xcode-select -s /Applications/Xcode_12.4.app
       - run: make buildifier
       - run: make docs
