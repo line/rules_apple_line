@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: sudo xcode-select -s /Applications/Xcode_12.4.app
-      - name: Build
-        run: bazelisk build --subcommands //examples/ios/PureSwift:PureSwiftFramework //examples/ios/PureObjC:PureObjCFramework //examples/ios/Mixed:MixedFramework //examples/ios/App
-      - name: Package dSYM
-        run: bazelisk build --subcommands --apple_generate_dsym --output_groups=+dsyms //examples/ios/App:App_dSYM
+      - name: Test
+        run: bazelisk test //test/...
+      - name: Test Package dSYM
+        run: bazelisk test --apple_generate_dsym --output_groups=+dsyms //test:pkg_dsym_build_test
   buildifier:
     name: Run Buildifier and Verify Documentation Generation
     runs-on: macOS-latest

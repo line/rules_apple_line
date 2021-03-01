@@ -60,4 +60,5 @@ pkg_dsym(
         "//examples/ios/App/WatchKitExtension",
     ],
     out = "App.dSYM.zip",
+    visibility = ["//visibility:public"],
 )
