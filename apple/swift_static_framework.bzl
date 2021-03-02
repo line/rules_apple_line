@@ -17,158 +17,20 @@ Swift module."""
 
 load(
     "@build_bazel_rules_swift//swift:swift.bzl",
-    "SwiftInfo",
     "swift_library",
 )
 load(
     "@build_bazel_rules_apple//apple:ios.bzl",
     "ios_static_framework",
 )
-load(
-    "@build_bazel_rules_apple//apple:providers.bzl",
-    "AppleBundleInfo",
-)
 load(":defines.bzl", "SWIFT_DEFINES")
 load(":headermap_support.bzl", "headermap_support")
-load(":module_map.bzl", "module_map")
 load(
     ":common.bzl",
     "DEFAULT_MINIMUM_OS_VERSION",
     "DEFAULT_VISIBILITY",
     "SHARED_COMPILER_OPTIONS",
     "SHARED_SWIFT_COMPILER_OPTIONS",
-)
-load(":zipper_support.bzl", "swiftmodule_zipper_arg_format")
-
-_PLATFORM_TO_SWIFTMODULE = {
-    "ios_armv7": "arm",
-    "ios_arm64": "arm64",
-    "ios_i386": "i386",
-    "ios_x86_64": "x86_64",
-}
-
-def _objc_headers_impl(ctx):
-    # Get all the Obj-C headers
-    headers = []
-    for dep in ctx.attr.deps:
-        objc_headers = dep[CcInfo].compilation_context.headers.to_list()
-        for hdr in objc_headers:
-            if hdr.owner == dep.label:
-                headers.append(hdr)
-    return [
-        DefaultInfo(
-            files = depset(headers),
-        ),
-    ]
-
-_objc_headers = rule(
-    _objc_headers_impl,
-    attrs = {
-        "deps": attr.label_list(
-            providers = [SwiftInfo],
-        ),
-    },
-)
-
-def _swift_static_framework_impl(ctx):
-    bundle_info = ctx.attr.framework[AppleBundleInfo]
-    framework_name = bundle_info.bundle_name + bundle_info.bundle_extension
-    new_framework = ctx.actions.declare_file(ctx.label.name + ".zip")
-    inputs = [
-        ctx.file.framework,
-    ]
-    zipper_args = ctx.actions.args()
-
-    # Get the `swiftdoc` and `swiftmodule` files for each architecture.
-    for arch, target in ctx.split_attr.swift_partial_target.items():
-        cpu = _PLATFORM_TO_SWIFTMODULE[arch]
-        if not cpu:
-            continue
-
-        direct_module = target[SwiftInfo].direct_modules[0]
-        swiftdoc = direct_module.swift.swiftdoc
-        swiftmodule = direct_module.swift.swiftmodule
-        inputs.extend([swiftmodule, swiftdoc])
-        module_name = direct_module.name
-
-        # There is a bit of hardcoding here, but this would avoid the file
-        # from needing to be evaluated at analysis phase.
-        zipper_args.add(
-            swiftdoc,
-            format = swiftmodule_zipper_arg_format(
-                framework = framework_name,
-                module_name = module_name,
-                cpu = cpu,
-                extension = "swiftdoc",
-            ),
-        )
-        zipper_args.add(
-            swiftmodule,
-            format = swiftmodule_zipper_arg_format(
-                framework = framework_name,
-                module_name = module_name,
-                cpu = cpu,
-                extension = "swiftmodule",
-            ),
-        )
-
-    command = """
-        {zipper} x {framework}
-        {zipper} c {new_framework} $(find {framework_name} -type f) $@
-        rm -rf {framework}
-    """.format(
-        framework = ctx.file.framework.path,
-        framework_name = framework_name,
-        new_framework = new_framework.path,
-        zipper = ctx.executable._zipper.path,
-    )
-
-    ctx.actions.run_shell(
-        inputs = inputs,
-        outputs = [new_framework],
-        mnemonic = "BundleStaticFramework",
-        progress_message = "Processing and bundling {}".format(framework_name),
-        command = command,
-        arguments = [zipper_args],
-        tools = [
-            ctx.executable._zipper,
-        ],
-    )
-
-    return [
-        DefaultInfo(
-            files = depset([new_framework]),
-        ),
-    ]
-
-_swift_static_framework = rule(
-    implementation = _swift_static_framework_impl,
-    attrs = dict(
-        framework = attr.label(
-            providers = [AppleBundleInfo],
-            allow_single_file = True,
-        ),
-        swift_partial_target = attr.label(
-            mandatory = True,
-            providers = [SwiftInfo],
-            cfg = apple_common.multi_arch_split,
-        ),
-        minimum_os_version = attr.string(
-            mandatory = True,
-        ),
-        platform_type = attr.string(
-            default = str(apple_common.platform_type.ios),
-        ),
-        _zipper = attr.label(
-            default = "@bazel_tools//tools/zip:zipper",
-            cfg = "exec",
-            executable = True,
-        ),
-    ),
-    fragments = ["apple"],
-    outputs = {
-        "output_file": "%{name}.zip",
-    },
 )
 
 def swift_static_framework(
@@ -244,12 +106,10 @@ def swift_static_framework(
     """
     swift_srcs = srcs
 
-    module_name = kwargs.get("module_name", name)
+    module_name = kwargs.pop("module_name", name)
 
-    objc_library_name = name
-    swift_library_name = name + "_swift"
+    swift_library_name = name
 
-    objc_deps = [":" + swift_library_name]
     swift_deps = [] + deps
 
     headermaps = headermap_support(
@@ -289,60 +149,20 @@ def swift_static_framework(
         swiftc_inputs = swiftc_inputs,
         copts = swift_copts,
         module_name = module_name,
-        visibility = ["//visibility:private"],
-        features = [
-            "swift.no_generated_module_map",
-        ],
+        visibility = visibility,
         deps = swift_deps,
         generated_header_name = module_name + "-Swift.h",
-    )
-
-    module_map(
-        name = name + "Module",
-        hdrs = [],
-        deps = [":" + swift_library_name],
-        module_name = module_name,
-        visibility = visibility,
-    )
-    umbrella_module_map = name + "Module"
-    objc_deps += [name + "Module"]
-
-    native.objc_library(
-        name = objc_library_name,
-        module_map = umbrella_module_map,
-        deps = objc_deps,
         data = data,
-        sdk_frameworks = kwargs.get("sdk_frameworks", []),
-        visibility = visibility,
-    )
-
-    _objc_headers(
-        name = name + ".hdrs",
-        deps = [
-            ":" + swift_library_name,
-        ],
     )
 
     if avoid_deps == None:
         avoid_deps = deps
 
     ios_static_framework(
-        name = name + ".intermediate",
-        hdrs = [
-            ":" + name + ".hdrs",
-        ],
-        deps = [
-            ":" + objc_library_name,
-        ],
+        name = name + "Framework",
+        deps = [":" + swift_library_name],
         avoid_deps = avoid_deps,
         bundle_name = module_name,
-        minimum_os_version = minimum_os_version,
-    )
-
-    _swift_static_framework(
-        name = name + "Framework",
-        framework = name + ".intermediate",
-        swift_partial_target = ":" + swift_library_name,
         minimum_os_version = minimum_os_version,
         visibility = visibility,
     )
