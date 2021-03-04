@@ -12,7 +12,7 @@ targets. This repository implements those features and exposes them as drop-in
 replacements for the official Apple rules.
 
 These are open references of what are used to build the LINE iOS app. They may
-not work with curtain revisions of `rules_apple` or `rules_swift` due to
+not work with certain revisions of `rules_apple` or `rules_swift` due to
 their breaking changes. If they don't work out-of-the-box for you, use them as
 references for your custom rule's implementation.
 
@@ -41,8 +41,7 @@ references for your custom rule's implementation.
 
 ## Requirements
 
-The latest versions of **rules_apple** and **rules_swift** rulesets require
-the usage of the [--incompatible_objc_compile_info_migration](https://docs.bazel.build/versions/master/command-line-reference.html#flag--incompatible_objc_compile_info_migration) flag to work correctly.
+Bazel 4.0+
 
 ## Quick setup
 
