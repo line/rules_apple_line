@@ -138,3 +138,50 @@ def rules_apple_line_dependencies():
         strip_prefix = "Yams-4.0.0",
         url = "https://github.com/jpsim/Yams/archive/4.0.0.tar.gz",
     )
+
+def rules_apple_line_test_dependencies():
+    """Fetches repositories that are dependencies for tests of the `rules_apple_line` workspace.
+    """
+    maybe(
+        http_archive,
+        name = "CardIO",
+        build_file = "//third_party:CardIO.BUILD",
+        url = "https://github.com/card-io/card.io-iOS-SDK/archive/5.4.1.tar.gz",
+        sha256 = "ff3e1ddf3cb111b7dec15cb62811a9cfc22c33c9de9d6a0fb8e64ee9c64c5a04",
+        strip_prefix = "card.io-iOS-SDK-5.4.1",
+    )
+
+    maybe(
+        http_archive,
+        name = "GoogleAnalytics",
+        build_file = "//third_party:GoogleAnalytics.BUILD",
+        sha256 = "5731a649759c1bd676a378e5caeb9e8ffb466a0c5aeab344ddd3800c9917e9ca",
+        url = "https://www.gstatic.com/cpdc/5cd71dd2f756bb01/GoogleAnalytics-3.17.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "OHHTTPStubs",
+        build_file = "//third_party:OHHTTPStubs.BUILD",
+        sha256 = "6a5689f8b857d16f89e89ca0462b71c9b2c46eaf28d66f9e105b6f859d888cfb",
+        strip_prefix = "OHHTTPStubs-9.0.0",
+        url = "https://github.com/AliSoftware/OHHTTPStubs/archive/9.0.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "facebook_ios_sdk",
+        build_file = "//third_party:facebook-ios-sdk.BUILD",
+        sha256 = "2039e0c197e0cbda9824e7fda97904e88171ed3a5ced1f03f78408a624afdac8",
+        strip_prefix = "facebook-ios-sdk-5.7.0",
+        url = "https://github.com/facebook/facebook-ios-sdk/archive/v5.7.0.tar.gz",
+    )
+
+    maybe(
+        http_archive,
+        name = "FLEX",
+        build_file = "//third_party:FLEX.BUILD",
+        sha256 = "b91fc261697fa1f3233aa2ede9dfe2b5fcffb9dafdbcdaddb1edfc94df40275a",
+        strip_prefix = "FLEX-4.1.1",
+        url = "https://github.com/FLEXTool/FLEX/archive/4.1.1.tar.gz",
+    )

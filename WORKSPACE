@@ -87,3 +87,7 @@ http_archive(
     sha256 = "96fc20e552795a06edccf53445f88fb448687509c51348fa6c27cce823c23f5e",
     url = "https://github.com/michaeleisel/zld/releases/download/1.2.1/zld.zip",
 )
+
+load("//apple:repositories.bzl", "rules_apple_line_test_dependencies")
+
+rules_apple_line_test_dependencies()

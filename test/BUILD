@@ -17,3 +17,15 @@ build_test(
         "//examples/ios/App:App_dSYM",
     ],
 )
+
+build_test(
+    name = "third_party_build_test",
+    targets = [
+        "@CardIO//:CardIOFramework",
+        "@GoogleAnalytics//:GoogleAnalyticsFramework",
+        "@OHHTTPStubs//:OHHTTPStubsFramework",
+        "@facebook_ios_sdk//:FBSDKCoreKitFramework",
+        "@facebook_ios_sdk//:FBSDKLoginKitFramework",
+        "@FLEX//:FLEXFramework",
+    ],
+)
