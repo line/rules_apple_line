@@ -1,7 +1,7 @@
 # LINE's Apple rules for Bazel ![](https://github.com/line/bazel_rules_apple/workflows/build/badge.svg)
 
 This repository contains additional rules for Bazel that can be used to bundle
-applications for Apple platforms.
+applications and frameworks for Apple platforms.
 
 ## Overview
 
