@@ -43,90 +43,31 @@ references for your custom rule's implementation.
 
 Bazel 4.0+
 
-## Quick setup
+## Setup
 
-Add the following to your `WORKSPACE` file to add the external repositories,
-replacing the revision number in the `commit` attribute with the version of the
-rules you wish to depend on:
+- Setup [rules_apple](https://github.com/bazelbuild/rules_apple#quick-setup).
+
+- Add the following to your `WORKSPACE` file, replacing `<commit>` with the
+  commit you wish to depend on:
 
 ```starlark
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-git_repository(
-    name = "build_bazel_rules_apple",
-    remote = "https://github.com/bazelbuild/rules_apple.git",
-    commit = "[SOME_HASH_VALUE]",
-)
-
-git_repository(
-    name = "build_bazel_rules_swift",
-    remote = "https://github.com/bazelbuild/rules_swift.git",
-    commit = "[SOME_HASH_VALUE]",
-)
-
-git_repository(
-    name = "build_bazel_apple_support",
-    remote = "https://github.com/bazelbuild/apple_support.git",
-    commit = "[SOME_HASH_VALUE]",
-)
-
 git_repository(
     name = "rules_apple_line",
     remote = "https://github.com/line/rules_apple_line.git",
-    commit = "[SOME_HASH_VALUE]",
+    commit = "<commit>",
 )
-
-load(
-    "@build_bazel_rules_apple//apple:repositories.bzl",
-    "apple_rules_dependencies",
-)
-
-apple_rules_dependencies()
-
-load(
-    "@build_bazel_rules_swift//swift:repositories.bzl",
-    "swift_rules_dependencies",
-)
-
-swift_rules_dependencies()
-
-load(
-    "@build_bazel_apple_support//lib:repositories.bzl",
-    "apple_support_dependencies",
-)
-
-apple_support_dependencies()
 
 load(
     "@rules_apple_line//apple:repositories.bzl",
     "rules_apple_line_dependencies",
 )
 
-# If you want to lock apple_support, rules_apple and rules_swift to specific
-# versions, be sure to call this function after their repository rules.
 rules_apple_line_dependencies()
 ```
 
 ## Examples
 
-Minimal example:
-
-```starlark
-load("@rules_apple_line//apple:mixed_static_framework.bzl", "mixed_static_framework")
-
-mixed_static_framework(
-    name = "Mixed",
-    srcs = glob([
-        "**/*.m",
-        "**/*.swift",
-    ]),
-    hdrs = glob([
-        "**/*.h",
-    ]),
-)
-```
-
-See the [examples](examples) directory for more examples.
+See the [examples](examples) directory.
 
 ## License
 
