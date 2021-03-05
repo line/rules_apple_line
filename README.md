@@ -57,6 +57,7 @@ RULES_APPLE_LINE_COMMIT = "<commit>"
 http_archive(
     name = "rules_apple_line",
     sha256 = "<sha256>",
+    strip_prefix = "rules_apple_line-%s" % RULES_APPLE_LINE_COMMIT,
     url = "https://github.com/line/rules_apple_line/archive/%s.zip" % RULES_APPLE_LINE_COMMIT,
 )
 
