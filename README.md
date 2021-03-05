@@ -48,13 +48,16 @@ Bazel 4.0+
 - Setup [rules_apple](https://github.com/bazelbuild/rules_apple#quick-setup).
 
 - Add the following to your `WORKSPACE` file, replacing `<commit>` with the
-  commit you wish to depend on:
+  commit you wish to depend on and `<sha256>` with the expected SHA-256 of the
+  zip file.
 
 ```starlark
-git_repository(
+RULES_APPLE_LINE_COMMIT = "<commit>"
+
+http_archive(
     name = "rules_apple_line",
-    remote = "https://github.com/line/rules_apple_line.git",
-    commit = "<commit>",
+    sha256 = "<sha256>",
+    url = "https://github.com/line/rules_apple_line/archive/%s.zip" % RULES_APPLE_LINE_COMMIT,
 )
 
 load(
