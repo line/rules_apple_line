@@ -15,23 +15,24 @@
 """Metal library implementation."""
 
 load("@build_bazel_apple_support//lib:apple_support.bzl", "apple_support")
+load(
+    "@build_bazel_rules_apple//apple/internal:platform_support.bzl",
+    "platform_support",
+)
 load("@bazel_skylib//lib:dicts.bzl", "dicts")
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load(":common.bzl", "METAL_FILE_TYPES")
 
-def _metal_apple_target_triple(ctx):
+def _metal_apple_target_triple(platform_prerequisites):
     """Returns a Metal target triple string for an Apple platform.
     Args:
         ctx: The compilation context.
     Returns:
         A target triple string describing the platform.
     """
-    platform = ctx.fragments.apple.single_arch_platform
-    target_os_version = ctx.attr._xcode_config[apple_common.XcodeVersionConfig].minimum_os_for_platform_type(
-        platform.platform_type,
-    )
+    target_os_version = platform_prerequisites.minimum_os
 
-    platform_string = str(platform.platform_type)
+    platform = platform_prerequisites.apple_fragment.single_arch_platform
     if platform_string == "macos":
         platform_string = "macosx"
 
@@ -47,7 +48,8 @@ def _metal_library_impl(ctx):
     air_files = []
 
     # Compile each .metal file into a single .air file
-    target = _metal_apple_target_triple(ctx)
+    platform_prerequisites = platform_support.platform_prerequisites_from_rule_ctx(ctx)
+    target = _metal_apple_target_triple(platform_prerequisites)
     for input_metal in ctx.files.srcs:
         air_file = ctx.actions.declare_file(
             paths.replace_extension(input_metal.basename, ".air"),
