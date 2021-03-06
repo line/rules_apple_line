@@ -5,16 +5,15 @@ applications and frameworks for Apple platforms.
 
 ## Overview
 
-[Bazel](http://bazel.build)'s official rules for Apple platforms lack many of
-the features that are conventionally important in the Apple community in
-general, notably: supports for header maps, Clang modules and mixed language
-targets. This repository implements those features and exposes them as drop-in
-replacements for the official Apple rules.
+These are open references of what are used to build the LINE iOS app, which
+solve some of our specific use-cases, for instance, mixed Objective-C and Swift
+modules. They can be used as drop-in replacements for the official Apple rules
+when needed, with the goal of being easy to switch back to the official ones
+when we longer need them.
 
-These are open references of what are used to build the LINE iOS app. They may
-not work with certain revisions of `rules_apple` or `rules_swift` due to
-their breaking changes. If they don't work out-of-the-box for you, use them as
-references for your custom rule's implementation.
+They may not work with certain revisions of `rules_apple` or
+`rules_swift` due to their breaking changes. If they don't work out-of-the-box
+for you, use them as references for your custom rule's implementation.
 
 ## Build Definitions
 
