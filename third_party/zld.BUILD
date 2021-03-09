@@ -1,3 +1,4 @@
+load("@build_bazel_apple_support//lib:apple_support.bzl", "apple_support")
 load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 load("@rules_apple_line//apple:apple_linker_inputs.bzl", "apple_linker_inputs")
 load("@rules_apple_line//apple:utils.bzl", "build_file_dirname")
@@ -19,12 +20,14 @@ apple_linker_inputs(
         # Add the containing directory to clang's search paths for binaries
         "-B$(BINDIR)/{}".format(
             build_file_dirname(
-                repository_name(),
-                package_name(),
+                repository_name = repository_name(),
+                package_name = package_name(),
             ),
         ),
         "-fuse-ld=zld",
-        "-Wl,-zld_original_ld_path,__BAZEL_XCODE_DEVELOPER_DIR__/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld",
+        "-Wl,-zld_original_ld_path,{}/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld".format(
+            apple_support.path_placeholders.xcode(),
+        ),
     ],
     visibility = ["//visibility:public"],
 )
