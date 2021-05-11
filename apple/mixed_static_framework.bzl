@@ -413,6 +413,7 @@ def mixed_static_framework(
             "swift.no_generated_module_map",
         ],
         deps = swift_deps,
+        generates_header = True,
         generated_header_name = module_name + "-Swift.h",
     )
 
