@@ -151,6 +151,7 @@ def swift_static_framework(
         module_name = module_name,
         visibility = visibility,
         deps = swift_deps,
+        generates_header = True,
         generated_header_name = module_name + "-Swift.h",
         data = data,
     )

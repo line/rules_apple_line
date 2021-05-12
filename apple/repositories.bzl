@@ -45,24 +45,10 @@ def rules_apple_line_dependencies():
     )
 
     maybe(
-        git_repository,
-        name = "build_bazel_apple_support",
-        remote = "https://github.com/bazelbuild/apple_support.git",
-        commit = "af337300718df43256c0f86d81da99606c223c9d",
-    )
-
-    maybe(
-        git_repository,
+        http_archive,
         name = "build_bazel_rules_apple",
-        remote = "https://github.com/bazelbuild/rules_apple.git",
-        commit = "4073a5a8ce32c41fed3e610e77993c726b509212",
-    )
-
-    maybe(
-        git_repository,
-        name = "build_bazel_rules_swift",
-        remote = "https://github.com/bazelbuild/rules_swift.git",
-        commit = "22a2472c0272a5f57e895ffcdec0617317253d64",
+        sha256 = "c84962b64d9ae4472adfb01ec2cf1aa73cb2ee8308242add55fa7cc38602d882",
+        url = "https://github.com/bazelbuild/rules_apple/releases/download/0.31.2/rules_apple.0.31.2.tar.gz",
     )
 
     maybe(
