@@ -102,6 +102,7 @@ def swift_static_framework(
           bundled to the top level directory of the bundling target (`.app` or
           `.framework`).
       visibility: The visibility specifications for this target.
+      features : Features of the underlying `swift_library` target.
       **kwargs: Additional arguments being passed through.
     """
     swift_srcs = srcs
@@ -143,11 +144,14 @@ def swift_static_framework(
             copt,
         ]
 
+    features = kwargs.get("features", [])
+
     swift_library(
         name = swift_library_name,
         srcs = swift_srcs,
         swiftc_inputs = swiftc_inputs,
         copts = swift_copts,
+        features = features,
         module_name = module_name,
         visibility = visibility,
         deps = swift_deps,
