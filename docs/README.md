@@ -158,9 +158,9 @@ apple_preprocessed_plist(<a href="#apple_preprocessed_plist-name">name</a>, <a h
 
 <pre>
 mixed_static_framework(<a href="#mixed_static_framework-name">name</a>, <a href="#mixed_static_framework-srcs">srcs</a>, <a href="#mixed_static_framework-non_arc_srcs">non_arc_srcs</a>, <a href="#mixed_static_framework-hdrs">hdrs</a>, <a href="#mixed_static_framework-textual_hdrs">textual_hdrs</a>, <a href="#mixed_static_framework-enable_modules">enable_modules</a>, <a href="#mixed_static_framework-includes">includes</a>,
-                       <a href="#mixed_static_framework-copts">copts</a>, <a href="#mixed_static_framework-objc_copts">objc_copts</a>, <a href="#mixed_static_framework-swift_copts">swift_copts</a>, <a href="#mixed_static_framework-use_defines">use_defines</a>, <a href="#mixed_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#mixed_static_framework-objc_deps">objc_deps</a>, <a href="#mixed_static_framework-swift_deps">swift_deps</a>, <a href="#mixed_static_framework-avoid_deps">avoid_deps</a>, <a href="#mixed_static_framework-deps">deps</a>, <a href="#mixed_static_framework-data">data</a>, <a href="#mixed_static_framework-umbrella_header">umbrella_header</a>, <a href="#mixed_static_framework-visibility">visibility</a>,
-                       <a href="#mixed_static_framework-features">features</a>,
-                       <a href="#mixed_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#mixed_static_framework-kwargs">kwargs</a>)
+                       <a href="#mixed_static_framework-copts">copts</a>, <a href="#mixed_static_framework-objc_copts">objc_copts</a>, <a href="#mixed_static_framework-swift_copts">swift_copts</a>, <a href="#mixed_static_framework-use_defines">use_defines</a>, <a href="#mixed_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#mixed_static_framework-objc_deps">objc_deps</a>,
+                       <a href="#mixed_static_framework-swift_deps">swift_deps</a>, <a href="#mixed_static_framework-avoid_deps">avoid_deps</a>, <a href="#mixed_static_framework-deps">deps</a>, <a href="#mixed_static_framework-data">data</a>, <a href="#mixed_static_framework-umbrella_header">umbrella_header</a>, <a href="#mixed_static_framework-visibility">visibility</a>,
+                       <a href="#mixed_static_framework-features">features</a>, <a href="#mixed_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#mixed_static_framework-kwargs">kwargs</a>)
 </pre>
 
 Builds and bundles a static framework for Xcode consumption or third-party distribution.
