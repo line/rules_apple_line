@@ -158,8 +158,7 @@ apple_preprocessed_plist(<a href="#apple_preprocessed_plist-name">name</a>, <a h
 
 <pre>
 mixed_static_framework(<a href="#mixed_static_framework-name">name</a>, <a href="#mixed_static_framework-srcs">srcs</a>, <a href="#mixed_static_framework-non_arc_srcs">non_arc_srcs</a>, <a href="#mixed_static_framework-hdrs">hdrs</a>, <a href="#mixed_static_framework-textual_hdrs">textual_hdrs</a>, <a href="#mixed_static_framework-enable_modules">enable_modules</a>, <a href="#mixed_static_framework-includes">includes</a>,
-                       <a href="#mixed_static_framework-copts">copts</a>, <a href="#mixed_static_framework-objc_copts">objc_copts</a>, <a href="#mixed_static_framework-swift_copts">swift_copts</a>, <a href="#mixed_static_framework-use_defines">use_defines</a>, <a href="#mixed_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#mixed_static_framework-objc_deps">objc_deps</a>,
-                       <a href="#mixed_static_framework-swift_deps">swift_deps</a>, <a href="#mixed_static_framework-avoid_deps">avoid_deps</a>, <a href="#mixed_static_framework-deps">deps</a>, <a href="#mixed_static_framework-data">data</a>, <a href="#mixed_static_framework-umbrella_header">umbrella_header</a>, <a href="#mixed_static_framework-visibility">visibility</a>,
+                       <a href="#mixed_static_framework-copts">copts</a>, <a href="#mixed_static_framework-objc_copts">objc_copts</a>, <a href="#mixed_static_framework-swift_copts">swift_copts</a>, <a href="#mixed_static_framework-use_defines">use_defines</a>, <a href="#mixed_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#mixed_static_framework-objc_deps">objc_deps</a>, <a href="#mixed_static_framework-swift_deps">swift_deps</a>, <a href="#mixed_static_framework-avoid_deps">avoid_deps</a>, <a href="#mixed_static_framework-deps">deps</a>, <a href="#mixed_static_framework-data">data</a>, <a href="#mixed_static_framework-umbrella_header">umbrella_header</a>, <a href="#mixed_static_framework-visibility">visibility</a>,
                        <a href="#mixed_static_framework-features">features</a>,
                        <a href="#mixed_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#mixed_static_framework-kwargs">kwargs</a>)
 </pre>
@@ -247,7 +246,7 @@ mixed_static_framework(
 | <a id="mixed_static_framework-data"></a>data |  The list of files needed by this rule at runtime. These will be     bundled to the top level directory of the bundling target (<code>.app</code> or     <code>.framework</code>).   |  <code>[]</code> |
 | <a id="mixed_static_framework-umbrella_header"></a>umbrella_header |  An optional single <code>.h</code> file to use as the umbrella     header for this framework. Usually, this header will have the same name     as this target, so that clients can load the header using the #import     <code>&lt;MyFramework/MyFramework.h&gt;</code> format. If this attribute is not specified     (the common use case), an umbrella header will be generated under the     same name as this target.   |  <code>None</code> |
 | <a id="mixed_static_framework-visibility"></a>visibility |  The visibility specifications for this target.   |  <code>["//visibility:public"]</code> |
-| <a id="mixed_static_framework-features"></a>Features |  Features of the underlying <code>swift_library</code> target.   |  <code>[]</code> |
+| <a id="mixed_static_framework-features"></a>features |  Features of the underlying <code>swift_library</code> target.   |  <code>[]</code> |
 | <a id="mixed_static_framework-minimum_os_version"></a>minimum_os_version |  Minimum os version.   |  <code>"11.0"</code> |
 | <a id="mixed_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
 
@@ -368,8 +367,7 @@ of each attribute.
 
 <pre>
 swift_static_framework(<a href="#swift_static_framework-name">name</a>, <a href="#swift_static_framework-srcs">srcs</a>, <a href="#swift_static_framework-copts">copts</a>, <a href="#swift_static_framework-use_defines">use_defines</a>, <a href="#swift_static_framework-swiftc_inputs">swiftc_inputs</a>, <a href="#swift_static_framework-deps">deps</a>, <a href="#swift_static_framework-avoid_deps">avoid_deps</a>, <a href="#swift_static_framework-data">data</a>,
-                       <a href="#swift_static_framework-visibility">visibility</a>,
-                       <a href="#swift_static_framework-features">features</a>, <a href="#swift_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#swift_static_framework-kwargs">kwargs</a>)
+                       <a href="#swift_static_framework-visibility">visibility</a>, <a href="#swift_static_framework-features">features</a>, <a href="#swift_static_framework-minimum_os_version">minimum_os_version</a>, <a href="#swift_static_framework-kwargs">kwargs</a>)
 </pre>
 
 Builds and bundles a Swift static framework for Xcode consumption or third-party distribution.
@@ -419,8 +417,8 @@ swift_static_framework(
 | <a id="swift_static_framework-avoid_deps"></a>avoid_deps |  A list of <code>objc_library</code> and <code>swift_library</code> targets on which     this framework depends in order to compile, but the transitive     closure of which will not be linked into the framework's binary. By     default this is the same as <code>deps</code>, that is none of the     depependencies will be linked into the framework's binary. For     example, providing an empty list (<code>[]</code>) here will result in a fully     static link binary.   |  <code>None</code> |
 | <a id="swift_static_framework-data"></a>data |  The list of files needed by this rule at runtime. These will be     bundled to the top level directory of the bundling target (<code>.app</code> or     <code>.framework</code>).   |  <code>[]</code> |
 | <a id="swift_static_framework-visibility"></a>visibility |  The visibility specifications for this target.   |  <code>["//visibility:public"]</code> |
-| <a id="swift_static_framework-minimum_os_version"></a>minimum_os_version |  <p align="center"> - </p>   |  <code>"11.0"</code> |
-| <a id="swift_static_framework-features"></a>Features |  Features of the underlying <code>swift_library</code> target.   |  <code>[]</code> |
+| <a id="swift_static_framework-minimum_os_version"></a>minimum_os_version |  The minimum OS version supported by the framework.   |  <code>"11.0"</code> |
+| <a id="swift_static_framework-features"></a>features |  Features of the underlying <code>swift_library</code> target.   |  <code>[]</code> |
 | <a id="swift_static_framework-kwargs"></a>kwargs |  Additional arguments being passed through.   |  none |
 
 
