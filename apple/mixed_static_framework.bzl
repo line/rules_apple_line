@@ -196,6 +196,7 @@ def mixed_static_framework(
         umbrella_header = None,
         visibility = DEFAULT_VISIBILITY,
         minimum_os_version = DEFAULT_MINIMUM_OS_VERSION,
+        features = [],
         **kwargs):
     """Builds and bundles a static framework for Xcode consumption or third-party distribution.
 
@@ -314,7 +315,7 @@ def mixed_static_framework(
           (the common use case), an umbrella header will be generated under the
           same name as this target.
       visibility: The visibility specifications for this target.
-      features : Features of the underlying `swift_library` target.
+      features: Features of the underlying `swift_library` target.
       minimum_os_version: Minimum os version.
       **kwargs: Additional arguments being passed through.
     """
@@ -403,7 +404,6 @@ def mixed_static_framework(
         "-fmodule-map-file=$(execpath {})".format(objc_module_map),
     ]
 
-    features = kwargs.get("features", [])
     features += ["swift.no_generated_module_map"]
 
     swift_library(

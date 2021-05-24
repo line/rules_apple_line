@@ -44,6 +44,7 @@ def swift_static_framework(
         data = [],
         visibility = DEFAULT_VISIBILITY,
         minimum_os_version = DEFAULT_MINIMUM_OS_VERSION,
+        features = [],
         **kwargs):
     """Builds and bundles a Swift static framework for Xcode consumption or third-party distribution.
 
@@ -102,7 +103,7 @@ def swift_static_framework(
           bundled to the top level directory of the bundling target (`.app` or
           `.framework`).
       visibility: The visibility specifications for this target.
-      features : Features of the underlying `swift_library` target.
+      features: Features of the underlying `swift_library` target.
       **kwargs: Additional arguments being passed through.
     """
     swift_srcs = srcs
@@ -143,8 +144,6 @@ def swift_static_framework(
             "-Xcc",
             copt,
         ]
-
-    features = kwargs.get("features", [])
 
     swift_library(
         name = swift_library_name,
