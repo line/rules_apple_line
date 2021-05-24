@@ -404,7 +404,7 @@ def mixed_static_framework(
         "-fmodule-map-file=$(execpath {})".format(objc_module_map),
     ]
 
-    features += ["swift.no_generated_module_map"]
+    swift_features = features + ["swift.no_generated_module_map"]
 
     swift_library(
         name = swift_library_name,
@@ -413,7 +413,7 @@ def mixed_static_framework(
         copts = swift_copts,
         module_name = module_name,
         visibility = ["//visibility:private"],
-        features = features,
+        features = swift_features,
         deps = swift_deps,
         generates_header = True,
         generated_header_name = module_name + "-Swift.h",
