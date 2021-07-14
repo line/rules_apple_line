@@ -103,7 +103,10 @@ def _metal_library_impl(ctx):
 
     # Return the provider for the new bundling logic of rules_apple.
     return [
-         resources.bucketize_typed([output_metallib], "unprocessed"),
+        DefaultInfo(
+            files = depset([output_metallib]),
+        ),
+        resources.bucketize_typed([output_metallib], "unprocessed"),
     ]
 
 metal_library = rule(
