@@ -59,7 +59,7 @@ load("@rules_apple_line//apple:metal_library.bzl", "metal_library")
 | <a id="metal_library-srcs"></a>srcs |  A list of <code>.metal</code> source files that will be compiled into the library.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |  |
 | <a id="metal_library-hdrs"></a>hdrs |  A list of header that you need import to metal source.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | []  |
 | <a id="metal_library-includes"></a>includes |  A list of header search path.   | List of strings | optional | []  |
-| <a id="metal_library-minimum_os_version"></a>minimum_os_version |  Minimum os version for build target.   | String | required |   |
+| <a id="metal_library-minimum_os_version"></a>minimum_os_version |  Minimum os version for build target.   | String | optional | "11.0"  |
 | <a id="metal_library-platform"></a>platform |  Target platform for build target.   | String | optional | "ios"  |
 
 <a id="#pkg_dsym"></a>

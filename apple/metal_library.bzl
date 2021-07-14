@@ -21,8 +21,8 @@ load(
 )
 load("@bazel_skylib//lib:dicts.bzl", "dicts")
 load("@bazel_skylib//lib:paths.bzl", "paths")
-load(":common.bzl", "METAL_FILE_TYPES")
-load("@build_bazel_rules_apple//apple/internal:resources.bzl","resources")
+load(":common.bzl", "METAL_FILE_TYPES", "DEFAULT_MINIMUM_OS_VERSION")
+load("@build_bazel_rules_apple//apple/internal:resources.bzl", "resources")
 
 def _metal_apple_target_triple(ctx):
     """Returns a Metal target triple string for an Apple platform.
@@ -48,21 +48,22 @@ def _metal_library_impl(ctx):
     target = _metal_apple_target_triple(ctx)
     # Compile each .metal file into a single .air file
     
-    for includePath in ctx.attr.includes:
-        includes_input.append("-I{}".format(includePath))
+    for include_path in ctx.attr.includes:
+        includes_input.append("-I{}".format(include_path))
     
     for input_metal in ctx.files.srcs:
         air_file = ctx.actions.declare_file(
             paths.replace_extension(input_metal.basename, ".air"),
         )
         air_files.append(air_file)
-        
+
         args = [
             "metal",
             "-c",
             "-target",
             target,
-            "-ffast-math"]
+            "-ffast-math"
+        ]
 
         args = args + includes_input
         args = args + ["-o",
@@ -100,12 +101,9 @@ def _metal_library_impl(ctx):
         mnemonic = "MetallibCompile",
     )
 
-    resource_provider = resources.bucketize_typed(
-        [output_metallib],
-        bucket_type = "unprocessed",
-    )
+    # Return the provider for the new bundling logic of rules_apple.
     return [
-        resource_provider,
+         resources.bucketize_typed([output_metallib], "unprocessed"),
     ]
 
 metal_library = rule(
@@ -130,7 +128,7 @@ An output `.metallib` filename. Defaults to `default.metallib` if unspecified.
 """,
         ),
         "minimum_os_version": attr.string(
-            mandatory = True,
+            default = DEFAULT_MINIMUM_OS_VERSION,
             doc = """\
                 Minimum os version for build target.
 """,
