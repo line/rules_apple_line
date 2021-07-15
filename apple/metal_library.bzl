@@ -32,7 +32,8 @@ def _metal_apple_target_triple(platform_prerequisites):
     """
     target_os_version = platform_prerequisites.minimum_os
 
-    platform = platform_prerequisites.apple_fragment.single_arch_platform
+    platform = platform_prerequisites.platform
+    platform_string = platform_prerequisites.platform_type
     if platform_string == "macos":
         platform_string = "macosx"
 
@@ -48,7 +49,19 @@ def _metal_library_impl(ctx):
     air_files = []
 
     # Compile each .metal file into a single .air file
-    platform_prerequisites = platform_support.platform_prerequisites_from_rule_ctx(ctx)
+    platform_prerequisites = platform_support.platform_prerequisites(
+        apple_fragment = ctx.fragments.apple,
+        config_vars = ctx.var,
+        device_families = None,
+        disabled_features = ctx.disabled_features,
+        explicit_minimum_os = None,
+        features = ctx.features,
+        objc_fragment = None,
+        platform_type_string = str(ctx.fragments.apple.single_arch_platform.platform_type),
+        uses_swift = False,
+        xcode_path_wrapper = ctx.executable._xcode_path_wrapper,
+        xcode_version_config = ctx.attr._xcode_config[apple_common.XcodeVersionConfig],
+    )
     target = _metal_apple_target_triple(platform_prerequisites)
     for input_metal in ctx.files.srcs:
         air_file = ctx.actions.declare_file(
