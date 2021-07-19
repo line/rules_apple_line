@@ -22,6 +22,7 @@ load(
 load("@bazel_skylib//lib:dicts.bzl", "dicts")
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load(":common.bzl", "METAL_FILE_TYPES")
+load("@build_bazel_rules_apple//apple/internal:resources.bzl", "resources")
 
 def _metal_apple_target_triple(platform_prerequisites):
     """Returns a Metal target triple string for an Apple platform.
@@ -47,6 +48,7 @@ def _metal_apple_target_triple(platform_prerequisites):
 
 def _metal_library_impl(ctx):
     air_files = []
+    includes_input = []
 
     # Compile each .metal file into a single .air file
     platform_prerequisites = platform_support.platform_prerequisites(
@@ -63,6 +65,10 @@ def _metal_library_impl(ctx):
         xcode_version_config = ctx.attr._xcode_config[apple_common.XcodeVersionConfig],
     )
     target = _metal_apple_target_triple(platform_prerequisites)
+    
+    for include_path in ctx.attr.includes:
+        includes_input.append("-I{}".format(include_path))
+    
     for input_metal in ctx.files.srcs:
         air_file = ctx.actions.declare_file(
             paths.replace_extension(input_metal.basename, ".air"),
@@ -74,8 +80,11 @@ def _metal_library_impl(ctx):
             "-c",
             "-target",
             target,
-            "-ffast-math",
-            "-o",
+            "-ffast-math"
+        ]
+
+        args = args + includes_input
+        args = args + ["-o",
             air_file.path,
             input_metal.path,
         ]
@@ -83,7 +92,7 @@ def _metal_library_impl(ctx):
         apple_support.run(
             ctx,
             executable = "/usr/bin/xcrun",
-            inputs = [input_metal],
+            inputs = [input_metal] + ctx.files.hdrs,
             outputs = [air_file],
             arguments = args,
             mnemonic = "MetalCompile",
@@ -110,7 +119,13 @@ def _metal_library_impl(ctx):
         mnemonic = "MetallibCompile",
     )
 
-    return [DefaultInfo(files = depset([output_metallib]))]
+    # Return the provider for the new bundling logic of rules_apple.
+    return [
+        DefaultInfo(
+            files = depset([output_metallib]),
+        ),
+        resources.bucketize_typed([output_metallib], "unprocessed"),
+    ]
 
 metal_library = rule(
     attrs = dicts.add(apple_support.action_required_attrs(), {
@@ -121,18 +136,27 @@ metal_library = rule(
 A list of `.metal` source files that will be compiled into the library.
 """,
         ),
+        "hdrs": attr.label_list(
+            allow_files = [".h"],
+            doc = """\
+                A list of header that you need import to metal source.
+""",
+        ),
         "out": attr.string(
             default = "default.metallib",
             doc = """\
 An output `.metallib` filename. Defaults to `default.metallib` if unspecified.
 """,
         ),
+        "includes": attr.string_list(
+            doc = """\
+                A list of header search path.
+""",
+        )
     }),
     doc = """\
 Compiles Metal Shading Language source code into a Metal library.
-
 To use this rule in your BUILD files, load it with:
-
 ```starlark
 load("@rules_apple_line//apple:metal_library.bzl", "metal_library")
 ```

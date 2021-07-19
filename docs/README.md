@@ -57,7 +57,8 @@ load("@rules_apple_line//apple:metal_library.bzl", "metal_library")
 | <a id="metal_library-name"></a>name |  A unique name for this target.   | <a href="https://bazel.build/docs/build-ref.html#name">Name</a> | required |  |
 | <a id="metal_library-out"></a>out |  An output <code>.metallib</code> filename. Defaults to <code>default.metallib</code> if unspecified.   | String | optional | "default.metallib" |
 | <a id="metal_library-srcs"></a>srcs |  A list of <code>.metal</code> source files that will be compiled into the library.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | required |  |
-
+| <a id="metal_library-hdrs"></a>hdrs |  A list of header that you need import to metal source.   | <a href="https://bazel.build/docs/build-ref.html#labels">List of labels</a> | optional | []  |
+| <a id="metal_library-includes"></a>includes |  A list of header search path.   | List of strings | optional | []  |
 
 <a id="#pkg_dsym"></a>
 
