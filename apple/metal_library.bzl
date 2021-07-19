@@ -139,7 +139,7 @@ A list of `.metal` source files that will be compiled into the library.
         "hdrs": attr.label_list(
             allow_files = [".h"],
             doc = """\
-                A list of header that you need import to metal source.
+A list of headers that you need import to metal source.
 """,
         ),
         "out": attr.string(
@@ -150,7 +150,7 @@ An output `.metallib` filename. Defaults to `default.metallib` if unspecified.
         ),
         "includes": attr.string_list(
             doc = """\
-                A list of header search path.
+A list of header search paths.
 """,
         )
     }),
