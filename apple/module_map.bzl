@@ -177,11 +177,6 @@ avoid duplicate modules.
         "out": attr.output(
             doc = "The name of the output module map file.",
         ),
-        "_realpath": attr.label(
-            cfg = "exec",
-            allow_single_file = True,
-            default = Label("@bazel_tools//tools/objc:realpath"),
-        ),
     },
     doc = "Generates a module map given a list of header files.",
 )
