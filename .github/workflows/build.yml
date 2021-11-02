@@ -12,7 +12,6 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo xcode-select -s /Applications/Xcode_12.4.app
       - name: Test
         run: bazelisk test //test/...
       - name: Test Package dSYM
@@ -22,6 +21,5 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo xcode-select -s /Applications/Xcode_12.4.app
       - run: make buildifier
       - run: make docs
