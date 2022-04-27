@@ -64,7 +64,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "Commander",
-        build_file = "//third_party:Commander.BUILD",
+        build_file = "@rules_apple_line//third_party:Commander.BUILD",
         sha256 = "4243b0227e51b8ea60345eac3ec4a3ff4385435e86011f2b60273e16806af9a8",
         strip_prefix = "Commander-0.9.1",
         url = "https://github.com/kylef/Commander/archive/0.9.1.tar.gz",
@@ -74,7 +74,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "Kanna",
-        build_file = "//third_party:Kanna.BUILD",
+        build_file = "@rules_apple_line//third_party:Kanna.BUILD",
         sha256 = "9aad278e9ec7069a4c06d638c8b21580587e93a67e93f488dabf0a51cd275265",
         strip_prefix = "Kanna-5.2.3",
         url = "https://github.com/tid-kijyun/Kanna/archive/5.2.3.tar.gz",
@@ -83,7 +83,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "PathKit",
-        build_file = "//third_party:PathKit.BUILD",
+        build_file = "@rules_apple_line//third_party:PathKit.BUILD",
         sha256 = "6d45fb8153b047d21568b607ba7da851a52f59817f35441a4656490b37680c64",
         strip_prefix = "PathKit-1.0.0",
         url = "https://github.com/kylef/PathKit/archive/1.0.0.tar.gz",
@@ -92,7 +92,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "Stencil",
-        build_file = "//third_party:Stencil.BUILD",
+        build_file = "@rules_apple_line//third_party:Stencil.BUILD",
         sha256 = "1f20c356f9dd454517e1362df7ec5355aee9fa3c59b8d48cadc62019f905d8ec",
         strip_prefix = "Stencil-0.14.0",
         url = "https://github.com/stencilproject/Stencil/archive/0.14.0.tar.gz",
@@ -101,7 +101,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "StencilSwiftKit",
-        build_file = "//third_party:StencilSwiftKit.BUILD",
+        build_file = "@rules_apple_line//third_party:StencilSwiftKit.BUILD",
         sha256 = "225f5c03051805d6bdb8f25f980bed83b03bb3c840278e9d7171d016c8b33fbd",
         strip_prefix = "StencilSwiftKit-fad4415a4c904a9845134b02fd66bd8464741427",
         url = "https://github.com/SwiftGen/StencilSwiftKit/archive/fad4415a4c904a9845134b02fd66bd8464741427.tar.gz",
@@ -110,7 +110,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "SwiftGen",
-        build_file = "//third_party:SwiftGen.BUILD",
+        build_file = "@rules_apple_line//third_party:SwiftGen.BUILD",
         sha256 = "fa9377ebea5c0bea55d67671eb2f20491a49f3a3d90b086d75743bffc99507f0",
         strip_prefix = "SwiftGen-6.4.0",
         url = "https://github.com/SwiftGen/SwiftGen/archive/6.4.0.tar.gz",
@@ -119,7 +119,7 @@ def rules_apple_line_dependencies():
     maybe(
         http_archive,
         name = "Yams",
-        build_file = "//third_party:Yams.BUILD",
+        build_file = "@rules_apple_line//third_party:Yams.BUILD",
         sha256 = "1653e729419565b9a34b327e3a70f514254c9d73c46c18be2599cd271105079f",
         strip_prefix = "Yams-4.0.0",
         url = "https://github.com/jpsim/Yams/archive/4.0.0.tar.gz",
@@ -131,7 +131,7 @@ def rules_apple_line_test_dependencies():
     maybe(
         http_archive,
         name = "CardIO",
-        build_file = "//third_party:CardIO.BUILD",
+        build_file = "@rules_apple_line//third_party:CardIO.BUILD",
         url = "https://github.com/card-io/card.io-iOS-SDK/archive/5.4.1.tar.gz",
         sha256 = "ff3e1ddf3cb111b7dec15cb62811a9cfc22c33c9de9d6a0fb8e64ee9c64c5a04",
         strip_prefix = "card.io-iOS-SDK-5.4.1",
@@ -140,7 +140,7 @@ def rules_apple_line_test_dependencies():
     maybe(
         http_archive,
         name = "GoogleAnalytics",
-        build_file = "//third_party:GoogleAnalytics.BUILD",
+        build_file = "@rules_apple_line//third_party:GoogleAnalytics.BUILD",
         sha256 = "5731a649759c1bd676a378e5caeb9e8ffb466a0c5aeab344ddd3800c9917e9ca",
         url = "https://www.gstatic.com/cpdc/5cd71dd2f756bb01/GoogleAnalytics-3.17.0.tar.gz",
     )
@@ -148,7 +148,7 @@ def rules_apple_line_test_dependencies():
     maybe(
         http_archive,
         name = "OHHTTPStubs",
-        build_file = "//third_party:OHHTTPStubs.BUILD",
+        build_file = "@rules_apple_line//third_party:OHHTTPStubs.BUILD",
         sha256 = "6a5689f8b857d16f89e89ca0462b71c9b2c46eaf28d66f9e105b6f859d888cfb",
         strip_prefix = "OHHTTPStubs-9.0.0",
         url = "https://github.com/AliSoftware/OHHTTPStubs/archive/9.0.0.tar.gz",
@@ -157,7 +157,7 @@ def rules_apple_line_test_dependencies():
     maybe(
         http_archive,
         name = "facebook_ios_sdk",
-        build_file = "//third_party:facebook-ios-sdk.BUILD",
+        build_file = "@rules_apple_line//third_party:facebook-ios-sdk.BUILD",
         sha256 = "2039e0c197e0cbda9824e7fda97904e88171ed3a5ced1f03f78408a624afdac8",
         strip_prefix = "facebook-ios-sdk-5.7.0",
         url = "https://github.com/facebook/facebook-ios-sdk/archive/v5.7.0.tar.gz",
@@ -166,7 +166,7 @@ def rules_apple_line_test_dependencies():
     maybe(
         http_archive,
         name = "FLEX",
-        build_file = "//third_party:FLEX.BUILD",
+        build_file = "@rules_apple_line//third_party:FLEX.BUILD",
         sha256 = "b91fc261697fa1f3233aa2ede9dfe2b5fcffb9dafdbcdaddb1edfc94df40275a",
         strip_prefix = "FLEX-4.1.1",
         url = "https://github.com/FLEXTool/FLEX/archive/4.1.1.tar.gz",
