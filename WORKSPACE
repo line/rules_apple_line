@@ -76,7 +76,7 @@ http_archive(
 
 http_archive(
     name = "zld",
-    build_file = "@rules_apple_line//third_party:zld.BUILD",
+    build_file = "//third_party:zld.BUILD",
     sha256 = "96fc20e552795a06edccf53445f88fb448687509c51348fa6c27cce823c23f5e",
     url = "https://github.com/michaeleisel/zld/releases/download/1.2.1/zld.zip",
 )
