@@ -13,7 +13,7 @@
 // under the License.
 
 #import "MXDObjcGreeter.h"
-#import <Mixed/Mixed-Swift.h>
+#import "Swift-Convenience.h"
 
 @implementation MXDObjcGreeter
 
