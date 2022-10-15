@@ -37,7 +37,7 @@ ios_application(
     watch_application = "//examples/ios/App/WatchKitApp",
     deps = [
         "//examples/ios/App/Sources:Main",
-        "@zld//:zld_linkopts",
+        "@lld//:lld_linkopts",
     ],
 )
 

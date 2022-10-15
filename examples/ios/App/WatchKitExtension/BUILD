@@ -20,7 +20,7 @@ watchos_extension(
     visibility = ["//visibility:public"],
     deps = [
         ":WatchKitExtensionLib",
-        "@zld//:zld_linkopts",
+        "@lld//:lld_linkopts",
     ],
 )
 

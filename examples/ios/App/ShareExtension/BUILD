@@ -35,6 +35,6 @@ ios_extension(
     visibility = ["//examples/ios/App:__pkg__"],
     deps = [
         ":ShareExtension",
-        "@zld//:zld_linkopts",
+        "@lld//:lld_linkopts",
     ],
 )

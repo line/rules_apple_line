@@ -78,10 +78,10 @@ http_archive(
 )
 
 http_archive(
-    name = "zld",
-    build_file = "//third_party:zld.BUILD",
-    sha256 = "96fc20e552795a06edccf53445f88fb448687509c51348fa6c27cce823c23f5e",
-    url = "https://github.com/michaeleisel/zld/releases/download/1.2.1/zld.zip",
+    name = "lld",
+    build_file = "//third_party:lld.BUILD",
+    sha256 = "28566b943082349269b6460a5c23a305a73460bac54f5cd21eb490ff7d84fed7",
+    url = "https://github.com/keith/ld64.lld/releases/download/10-14-22/ld64.tar.xz",
 )
 
 load("//apple:repositories.bzl", "rules_apple_line_test_dependencies")
