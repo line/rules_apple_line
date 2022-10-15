@@ -65,10 +65,10 @@ def _metal_library_impl(ctx):
         xcode_version_config = ctx.attr._xcode_config[apple_common.XcodeVersionConfig],
     )
     target = _metal_apple_target_triple(platform_prerequisites)
-    
+
     for include_path in ctx.attr.includes:
         includes_input.append("-I{}".format(include_path))
-    
+
     for input_metal in ctx.files.srcs:
         air_file = ctx.actions.declare_file(
             paths.replace_extension(input_metal.basename, ".air"),
@@ -80,11 +80,12 @@ def _metal_library_impl(ctx):
             "-c",
             "-target",
             target,
-            "-ffast-math"
+            "-ffast-math",
         ]
 
         args = args + includes_input
-        args = args + ["-o",
+        args = args + [
+            "-o",
             air_file.path,
             input_metal.path,
         ]
@@ -152,7 +153,7 @@ An output `.metallib` filename. Defaults to `default.metallib` if unspecified.
             doc = """\
 A list of header search paths.
 """,
-        )
+        ),
     }),
     doc = """\
 Compiles Metal Shading Language source code into a Metal library.

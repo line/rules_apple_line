@@ -45,10 +45,13 @@ load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
 bazel_skylib_workspace()
 
-git_repository(
+http_archive(
     name = "io_bazel_stardoc",
-    commit = "247c2097e7346778ac8d03de5a4770d6b9890dc5",
-    remote = "https://github.com/bazelbuild/stardoc.git",
+    sha256 = "05fb57bb4ad68a360470420a3b6f5317e4f722839abc5b17ec4ef8ed465aaa47",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/stardoc/releases/download/0.5.2/stardoc-0.5.2.tar.gz",
+        "https://github.com/bazelbuild/stardoc/releases/download/0.5.2/stardoc-0.5.2.tar.gz",
+    ],
 )
 
 load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
